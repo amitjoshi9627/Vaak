@@ -1,41 +1,65 @@
-from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from vaak.core.exceptions import ConfigurationError
 
 
-@dataclass(frozen=True)
-class VaakConfig:
-    """Root Vaak configuration."""
+class ModelConfig(BaseModel):
+    """Model configuration."""
 
-    project_name: str
-    version: str
-    environment: str
+    model_config = ConfigDict(extra="forbid")
+
+    name: str
+    pretrained: str
+
+
+class DataConfig(BaseModel):
+    """Dataset configuration."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    manifest: Path
+    sample_rate: int = Field(default=16_000, gt=0)
+    chunk_duration_seconds: float = Field(default=4.0, gt=0)
+
+
+class TrainingConfig(BaseModel):
+    """Training configuration."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    batch_size: int = Field(default=8, gt=0)
+    learning_rate: float = Field(default=1e-4, gt=0)
+    epochs: int = Field(default=5, gt=0)
+
+
+class VaakConfig(BaseModel):
+    """Root configuration for a Vaak experiment."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    experiment_name: str
+    model: ModelConfig
+    data: DataConfig
+    training: TrainingConfig
 
 
 def load_config(path: Path) -> VaakConfig:
-    """Load Vaak configuration from a YAML file."""
+    """Load and validate a Vaak YAML configuration."""
 
     if not path.exists():
         raise ConfigurationError(f"Configuration file does not exist: {path}")
 
-    with path.open("r", encoding="utf-8") as file:
-        raw = yaml.safe_load(file)
-
-    if not isinstance(raw, dict):
-        raise ConfigurationError("Configuration root must be a mapping.")
-
     try:
-        project_name = str(raw["project_name"])
-        version = str(raw["version"])
-        environment = str(raw["environment"])
-    except KeyError as exc:
-        raise ConfigurationError(f"Missing configuration field: {exc.args[0]}") from exc
+        with path.open("r", encoding="utf-8") as file:
+            raw_config = yaml.safe_load(file)
 
-    return VaakConfig(
-        project_name=project_name,
-        version=version,
-        environment=environment,
-    )
+        return VaakConfig.model_validate(raw_config)
+
+    except yaml.YAMLError as exc:
+        raise ConfigurationError(f"Invalid YAML configuration: {path}") from exc
+
+    except ValidationError as exc:
+        raise ConfigurationError(f"Invalid Vaak configuration: {path}\n{exc}") from exc

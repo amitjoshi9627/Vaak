@@ -16,7 +16,6 @@ help:
 	@echo "  make format-check Check formatting"
 	@echo "  make typecheck    Run mypy"
 	@echo "  make check        Run all quality checks"
-	@echo "  make smoke        Run smoke test"
 	@echo "  make clean        Remove generated files"
 
 
@@ -35,23 +34,15 @@ test-cov:
 	$(PYTEST) --cov=vaak --cov-report=term-missing
 
 
-.PHONY: lint
-lint:
-	$(RUFF) check .
-
-
-.PHONY: lint-fix
-lint-fix:
-	$(RUFF) check . --fix
-
-
 .PHONY: format
 format:
+	$(RUFF) check . --fix
 	$(RUFF) format .
 
 
 .PHONY: format-check
 format-check:
+	$(RUFF) check .
 	$(RUFF) format --check .
 
 
@@ -66,11 +57,6 @@ check:
 	$(RUFF) format --check .
 	$(MYPY) src tests
 	$(PYTEST)
-
-
-.PHONY: smoke
-smoke:
-	$(PYTHON) scripts/smoke_test.py
 
 
 .PHONY: clean
