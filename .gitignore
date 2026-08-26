@@ -25,6 +25,7 @@ dist/
 # IDE
 .idea/
 .idea/*.iml
+.idea/*.xml
 .vscode/
 
 # OS

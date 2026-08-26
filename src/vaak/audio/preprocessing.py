@@ -1,5 +1,5 @@
 import torch
-import torch.nn.functional as fnc
+import torch.nn.functional as F
 
 
 def resample_audio(
@@ -28,7 +28,7 @@ def resample_audio(
     # [samples] -> [1, 1, samples]
     audio = waveform.float().unsqueeze(0).unsqueeze(0)
 
-    resampled = fnc.interpolate(
+    resampled = F.interpolate(
         audio,
         size=target_length,
         mode="linear",
