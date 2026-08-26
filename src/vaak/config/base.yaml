@@ -8,6 +8,7 @@ data:
   manifest: data/manifests/train.csv
   sample_rate: 16000
   chunk_duration_seconds: 4.0
+  hop_duration_seconds: 2.0
 
 training:
   batch_size: 8

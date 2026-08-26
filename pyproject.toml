@@ -1,9 +1,9 @@
 [project]
 name = "vaak"
-version = "0.1.1"
+version = "0.1.2"
 description = "Vaak — an ear that's trained to notice."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 
 authors = [
     { name = "Vaak" }
@@ -13,6 +13,10 @@ dependencies = [
     "pydantic>=2.11",
     "pytest>=9.1.1",
     "pyyaml>=6.0",
+    "soundfile>=0.14.0",
+    "torch>=2.13.0",
+    "torchaudio==2.11.0",
+    "torchcodec==0.16.0",
     "types-pyyaml>=6.0.12.20260815",
 ]
 
@@ -70,12 +74,8 @@ indent-style = "space"
 line-ending = "lf"
 
 
-# -----------------------------
-# Mypy
-# -----------------------------
-
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = true
 
 warn_unused_configs = true
@@ -94,6 +94,13 @@ pretty = true
 
 mypy_path = ["src"]
 
+
+[[tool.mypy.overrides]]
+module = [
+    "torchaudio",
+    "soundfile"
+]
+ignore_missing_imports = true
 
 
 [tool.pytest.ini_options]
