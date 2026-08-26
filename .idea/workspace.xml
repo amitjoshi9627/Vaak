@@ -7,8 +7,6 @@
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/audio/chunking.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/audio/chunking.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/audio/preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/audio/preprocessing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
