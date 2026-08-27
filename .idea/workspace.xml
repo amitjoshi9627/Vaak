@@ -5,16 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/vaak/models/backends/pooling.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/models/detector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/models/encoders/wavlm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/models/heads/binary.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/integration/test_models_pipeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/evaluation/evaluator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/evaluation/metrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/training/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/training/trainer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/utils/tools.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/evaluation/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/evaluation/test_metrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_trainer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +34,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="3ILvRvBfTu78asDkVecwjftWQpI" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -49,6 +51,7 @@
     "Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository.executor": "Debug",
     "Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id.executor": "Run",
     "Python tests.Python tests for tests.integration.test_models_pipeline.test_forward_pass.executor": "Run",
+    "Python tests.Python tests in test_trainer.py.executor": "Run",
     "Python.registry.executor": "Run",
     "Python.smoke_test.executor": "Run",
     "Python.test_pipeline.executor": "Run",
@@ -70,7 +73,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for tests.integration.test_models_pipeline.test_forward_pass">
+  <component name="RunManager" selected="Python tests.Python tests in test_trainer.py">
     <configuration name="Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Vaak" />
       <option name="ENV_FILES" value="" />
@@ -119,22 +122,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Vaak" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.data.test_manifest.test_manifest_preserves_attack_id&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Python tests for tests.integration.test_models_pipeline.test_forward_pass" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Vaak" />
       <option name="ENV_FILES" value="" />
@@ -151,13 +138,29 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests in test_trainer.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Vaak" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/test_trainer.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests in test_trainer.py" />
         <item itemvalue="Python tests.Python tests for tests.integration.test_models_pipeline.test_forward_pass" />
         <item itemvalue="Python tests.Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly" />
         <item itemvalue="Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_dataset_root" />
         <item itemvalue="Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository" />
-        <item itemvalue="Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id" />
       </list>
     </recent_temporary>
   </component>
