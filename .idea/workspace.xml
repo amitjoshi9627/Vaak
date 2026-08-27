@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/vaak/data/adapters/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/data/adapters/asvspoof2019.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/fixtures/test_manifest.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/prepare_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/prepare_asvspoof.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/data/adapters/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/adapters/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/data/adapters/asvspoof2019.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/adapters/asvspoof2019.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/data/manifest.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/manifest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
@@ -38,76 +39,33 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.registry.executor&quot;: &quot;Run&quot;,
-    &quot;Python.smoke_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_pipeline.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_registry.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/amit/PycharmProjects/Vaak/tests/audio&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository.executor": "Debug",
+    "Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id.executor": "Run",
+    "Python.registry.executor": "Run",
+    "Python.smoke_test.executor": "Run",
+    "Python.test_pipeline.executor": "Run",
+    "Python.test_registry.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/amit/PycharmProjects/Vaak/tests/audio"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tests/audio" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/fixtures/manifests" />
       <recent name="$PROJECT_DIR$/tests/data" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id">
-    <configuration name="registry" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Vaak" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/vaak/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/vaak/core/registry.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="smoke_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Vaak" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/smoke_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly">
     <configuration name="test_pipeline" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Vaak" />
       <option name="ENV_FILES" value="" />
@@ -131,27 +89,52 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_registry" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Vaak" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_registry.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.data.test_asvspoof2019.test_labels_are_mapped_correctly&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_dataset_root" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Vaak" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.data.test_asvspoof2019.test_paths_are_relative_to_dataset_root&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Vaak" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.data.test_asvspoof2019.test_paths_are_relative_to_repository&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
@@ -172,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly" />
+        <item itemvalue="Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_dataset_root" />
+        <item itemvalue="Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository" />
         <item itemvalue="Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id" />
         <item itemvalue="Python.test_pipeline" />
-        <item itemvalue="Python.smoke_test" />
-        <item itemvalue="Python.test_registry" />
-        <item itemvalue="Python.registry" />
       </list>
     </recent_temporary>
   </component>
@@ -196,5 +179,16 @@
       <updated>1787556658694</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/data/test_asvspoof2019.py</url>
+          <line>122</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

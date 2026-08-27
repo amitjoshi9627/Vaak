@@ -70,3 +70,8 @@ clean:
 	rm -rf build
 	rm -rf *.egg-info
 	find . -type d -name "__pycache__" -prune -exec rm -rf {} +
+
+
+.PHONY: prepare-asvspoof
+prepare-asvspoof:
+	uv run python scripts/prepare_asvspoof.py
