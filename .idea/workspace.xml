@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/vaak/evaluation/evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/evaluation/metrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/training/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/training/trainer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/utils/tools.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/evaluation/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/evaluation/test_metrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_trainer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/inference/predictor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
