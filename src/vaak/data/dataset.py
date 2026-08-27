@@ -1,14 +1,13 @@
 from pathlib import Path
 
 import pandas as pd
-import torch
 from torch.utils.data import Dataset
 
 from vaak.audio import AudioPipeline
 
 
-class VaakAudioDataset(Dataset[tuple[torch.Tensor, int]]):
-    """PyTorch dataset for Vaak audio classification."""
+class VaakAudioDataset(Dataset[dict[str, object]]):
+    """Dataset for Vaak audio samples."""
 
     def __init__(
         self,
@@ -16,26 +15,26 @@ class VaakAudioDataset(Dataset[tuple[torch.Tensor, int]]):
         split: str,
         audio_pipeline: AudioPipeline,
     ) -> None:
-        self.manifest = manifest[manifest["split"] == split].reset_index(drop=True)
+        self.manifest = manifest.loc[manifest["split"] == split].reset_index(drop=True)
 
         if self.manifest.empty:
-            raise ValueError(f"No samples found for split: {split}")
+            raise ValueError(f"No samples found for split '{split}'.")
 
         self.audio_pipeline = audio_pipeline
 
     def __len__(self) -> int:
         return len(self.manifest)
 
-    def __getitem__(
-        self,
-        index: int,
-    ) -> tuple[torch.Tensor, int]:
-
+    def __getitem__(self, index: int) -> dict[str, object]:
         row = self.manifest.iloc[index]
 
-        audio_path = Path(row["audio_path"])
-        label = int(row["label"])
+        chunks = self.audio_pipeline.process(Path(row["audio_path"]))
 
-        chunks = self.audio_pipeline.process(audio_path)
-
-        return chunks, label
+        return {
+            "audio": chunks,
+            "label": int(row["label"]),
+            "sample_id": str(row["sample_id"]),
+            "speaker_id": str(row["speaker_id"]),
+            "dataset": str(row["dataset"]),
+            "attack_id": (None if pd.isna(row["attack_id"]) else str(row["attack_id"])),
+        }

@@ -1,0 +1,5 @@
+sample_id,audio_path,label,speaker_id,dataset,split,attack_id
+sample_001,tests/fixtures/sample_voice.wav,0,spk_001,demo,train,
+sample_002,tests/fixtures/sample_voice.wav,1,spk_002,demo,train,A01
+sample_003,tests/fixtures/sample_voice.wav,0,spk_003,demo,val,
+sample_004,tests/fixtures/sample_voice.wav,1,spk_004,demo,test,A02

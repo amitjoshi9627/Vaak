@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/vaak/data/adapters/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/data/adapters/asvspoof2019.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/fixtures/test_manifest.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/data/manifest.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/manifest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +61,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_pipeline">
+  <component name="RunManager" selected="Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id">
     <configuration name="registry" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Vaak" />
       <option name="ENV_FILES" value="" />
@@ -150,8 +154,25 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Vaak" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.data.test_manifest.test_manifest_preserves_attack_id&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id" />
         <item itemvalue="Python.test_pipeline" />
         <item itemvalue="Python.smoke_test" />
         <item itemvalue="Python.test_registry" />
