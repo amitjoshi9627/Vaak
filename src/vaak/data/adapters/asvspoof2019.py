@@ -119,8 +119,7 @@ class ASVspoof2019LAAdapter:
                 audio_file = audio_dir / f"{sample_id}.flac"
 
                 # Store paths relative to the repository root.
-                relative_audio_path = audio_file.relative_to(self.root.parent.parent)
-
+                relative_audio_path = audio_file.relative_to(self.root.parents[2])
                 rows.append(
                     {
                         "sample_id": sample_id,

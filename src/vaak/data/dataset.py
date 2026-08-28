@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import TypedDict
 
@@ -6,6 +7,9 @@ import torch
 from torch.utils.data import Dataset
 
 from vaak.audio import AudioPipeline
+
+
+logger = logging.getLogger(__name__)
 
 
 class VaakSample(TypedDict):
@@ -40,8 +44,13 @@ class VaakDataset(Dataset[VaakSample]):
         audio_pipeline: AudioPipeline,
         project_root: Path,
         random_crop: bool = False,
+        max_samples: int | None = None,
     ) -> None:
         self.manifest = manifest.loc[manifest["split"] == split].reset_index(drop=True)
+
+        if max_samples is not None:
+            logger.info(f"Limiting {split} samples to {max_samples} samples out of {len(self.manifest)}")
+            self.manifest = self.manifest.head(max_samples)
 
         if self.manifest.empty:
             raise ValueError(f"No samples found for split '{split}'.")

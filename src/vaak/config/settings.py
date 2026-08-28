@@ -24,6 +24,7 @@ class DataConfig(BaseModel):
     sample_rate: int = Field(default=16_000, gt=0)
     chunk_duration_seconds: float = Field(default=4.0, gt=0)
     hop_duration_seconds: float = Field(default=2.0, gt=0)
+    max_samples: int | None = None
 
 
 class TrainingConfig(BaseModel):

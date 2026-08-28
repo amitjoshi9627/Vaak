@@ -32,21 +32,24 @@ class Trainer:
         criterion: nn.Module,
         device: torch.device,
         checkpoint_dir: Path | None = None,
+        log_interval: int = 100,
     ) -> None:
         self.model = model.to(device)
         self.optimizer = optimizer
         self.criterion = criterion
         self.device = device
         self.checkpoint_dir = checkpoint_dir
+        self.log_interval = log_interval
 
         if self.checkpoint_dir is not None:
             self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
-    def train_epoch(self, dataloader: DataLoader[VaakBatch]) -> float:
-        """Run a single training epoch.
+    def train_epoch(self, dataloader: DataLoader[VaakBatch], epoch: int) -> float:
+        """Run a single training epoch and log intermediate progress.
 
         Args:
             dataloader: DataLoader supplying VaakBatch samples.
+            epoch: The current epoch index (for logging purposes).
 
         Returns:
             Average training loss for the epoch.
@@ -54,8 +57,9 @@ class Trainer:
         self.model.train()
         running_loss = 0.0
         total_samples = 0
+        num_batches = len(dataloader)
 
-        for batch in dataloader:
+        for batch_idx, batch in enumerate(dataloader, start=1):
             audio = batch["audio"].to(self.device)
             labels = batch["labels"].to(self.device)
 
@@ -69,6 +73,15 @@ class Trainer:
             batch_size = audio.size(0)
             running_loss += loss.item() * batch_size
             total_samples += batch_size
+
+            # Mid-epoch logging
+            if batch_idx % self.log_interval == 0 or batch_idx == num_batches:
+                current_loss = running_loss / total_samples
+                logger.info(
+                    f"Epoch {epoch} | "
+                    f"Batch {batch_idx}/{num_batches} | "
+                    f"Loss: {current_loss:.4f}"
+                )
 
         return running_loss / total_samples if total_samples > 0 else 0.0
 
@@ -128,14 +141,14 @@ class Trainer:
         logger.info(f"Starting training on device: {self.device}")
 
         for epoch in range(1, epochs + 1):
-            train_loss = self.train_epoch(train_loader)
+            train_loss = self.train_epoch(train_loader, epoch)
             val_loss, val_acc = self.evaluate(val_loader)
 
             train_losses.append(train_loss)
             val_losses.append(val_loss)
 
             logger.info(
-                f"Epoch {epoch}/{epochs} | "
+                f"Epoch {epoch} Summary | "
                 f"Train Loss: {train_loss:.4f} | "
                 f"Val Loss: {val_loss:.4f} | "
                 f"Val Acc: {val_acc:.4f}"
