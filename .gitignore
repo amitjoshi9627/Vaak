@@ -54,4 +54,5 @@ data/manifests/*.csv
 # mlflow
 
 mlflow/
+mlruns/
 *mlflow.db
