@@ -9,6 +9,7 @@ from torch.utils.data import DataLoader
 
 from vaak.core.logging import get_logger
 from vaak.data.dataset import VaakBatch
+from vaak.utils.tracker import MLflowTracker
 
 logger = get_logger(__name__)
 
@@ -33,6 +34,7 @@ class Trainer:
         device: torch.device,
         checkpoint_dir: Path | None = None,
         log_interval: int = 100,
+        tracker: MLflowTracker | None = None,
     ) -> None:
         self.model = model.to(device)
         self.optimizer = optimizer
@@ -40,6 +42,7 @@ class Trainer:
         self.device = device
         self.checkpoint_dir = checkpoint_dir
         self.log_interval = log_interval
+        self.tracker = tracker
 
         if self.checkpoint_dir is not None:
             self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
@@ -154,6 +157,16 @@ class Trainer:
                 f"Val Acc: {val_acc:.4f}"
             )
 
+            if self.tracker is not None:
+                self.tracker.log_metrics(
+                    {
+                        "train_loss": train_loss,
+                        "val_loss": val_loss,
+                        "val_acc": val_acc,
+                    },
+                    step=epoch,
+                )
+
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
                 if self.checkpoint_dir is not None:
@@ -190,3 +203,6 @@ class Trainer:
         }
         torch.save(checkpoint_data, checkpoint_path)
         logger.info(f"Checkpoint saved: {checkpoint_path}")
+
+        if self.tracker is not None:
+            self.tracker.log_artifact(checkpoint_path)

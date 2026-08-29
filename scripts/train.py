@@ -17,6 +17,7 @@ from vaak.models.encoders.wavlm import WavLMEncoder
 from vaak.models.heads.binary import BinaryLinearHead
 from vaak.training.trainer import Trainer
 from vaak.utils.tools import get_optimal_device
+from vaak.utils.tracker import MLflowTracker
 
 logger = get_logger(__name__)
 
@@ -34,14 +35,35 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    """Execute the full training and evaluation pipeline."""
+    """Execute the full training and evaluation pipeline with MLflow tracking."""
     configure_logging()
     args = parse_args()
 
     project_root = Path(__file__).resolve().parents[1]
-
     config = load_config(args.config)
     device = get_optimal_device()
+
+    tracker = MLflowTracker(
+        experiment_name=config.experiment_name,
+        tracking_uri=project_root / "mlruns",
+    )
+    tracker.start_run(run_name=f"{config.model.name}_baseline")
+
+    tracker.log_params(
+        {
+            "experiment_name": config.experiment_name,
+            "model_name": config.model.name,
+            "pretrained": config.model.pretrained,
+            "sample_rate": config.data.sample_rate,
+            "chunk_duration_seconds": config.data.chunk_duration_seconds,
+            "hop_duration_seconds": config.data.hop_duration_seconds,
+            "max_samples": config.data.max_samples,
+            "batch_size": config.training.batch_size,
+            "learning_rate": config.training.learning_rate,
+            "epochs": config.training.epochs,
+            "device": device.type,
+        }
+    )
 
     logger.info(f"Starting experiment: {config.experiment_name}")
     logger.info(f"Compute device: {device}")
@@ -93,18 +115,6 @@ def main() -> None:
         pin_memory=device.type == "cuda",
     )
 
-    first_batch = next(iter(train_loader))
-    batch_audio = first_batch["audio"]  # Shape: [B, 64000]
-    num_samples = batch_audio.shape[1]
-    duration_seconds = num_samples / config.data.sample_rate
-
-    logger.info(
-        f"Input Tensor Shape: {list(batch_audio.shape)} | "
-        f"Sample Rate: {config.data.sample_rate} Hz | "
-        f"Window Duration: {duration_seconds:.2f}s "
-        f"({num_samples} samples/chunk)"
-    )
-
     val_loader = DataLoader(
         val_dataset,
         batch_size=config.training.batch_size,
@@ -146,32 +156,50 @@ def main() -> None:
         criterion=criterion,
         device=device,
         checkpoint_dir=checkpoint_dir,
+        tracker=tracker,
     )
 
-    logger.info("Beginning model training...")
-    trainer.fit(
-        train_loader=train_loader,
-        val_loader=val_loader,
-        epochs=config.training.epochs,
-    )
-
-    logger.info("Loading best checkpoint for final evaluation...")
-    best_checkpoint_path = checkpoint_dir / "best_model.pt"
-    if best_checkpoint_path.exists():
-        checkpoint = torch.load(
-            best_checkpoint_path, map_location=device, weights_only=True
+    try:
+        logger.info("Beginning model training...")
+        trainer.fit(
+            train_loader=train_loader,
+            val_loader=val_loader,
+            epochs=config.training.epochs,
         )
-        model.load_state_dict(checkpoint["model_state_dict"])
 
-    logger.info("Running final evaluation on test split...")
-    evaluator = Evaluator(model=model, device=device)
-    report = evaluator.evaluate(test_loader)
+        logger.info("Loading best checkpoint for final evaluation...")
+        best_checkpoint_path = checkpoint_dir / "best_model.pt"
+        if best_checkpoint_path.exists():
+            checkpoint = torch.load(
+                best_checkpoint_path, map_location=device, weights_only=True
+            )
+            model.load_state_dict(checkpoint["model_state_dict"])
 
-    logger.info(
-        f"Final Test Metrics - EER: {report.eer:.4f} | "
-        f"minDCF: {report.min_dcf:.4f} | "
-        f"AUC: {report.auc:.4f}"
-    )
+        logger.info("Running final evaluation on test split...")
+        evaluator = Evaluator(model=model, device=device)
+        report = evaluator.evaluate(test_loader)
+
+        test_metrics = {
+            "test_eer": report.eer,
+            "test_min_dcf": report.min_dcf,
+            "test_auc": report.auc,
+        }
+
+        # Log disaggregated attack metrics
+        for attack_id, metrics in report.attack_metrics.items():
+            test_metrics[f"test_eer_{attack_id}"] = metrics["eer"]
+            test_metrics[f"test_min_dcf_{attack_id}"] = metrics["min_dcf"]
+            test_metrics[f"test_auc_{attack_id}"] = metrics["auc"]
+
+        tracker.log_metrics(test_metrics)
+
+        logger.info(
+            f"Final Test Metrics - EER: {report.eer:.4f} | "
+            f"minDCF: {report.min_dcf:.4f} | "
+            f"AUC: {report.auc:.4f}"
+        )
+    finally:
+        tracker.end_run()
 
 
 if __name__ == "__main__":

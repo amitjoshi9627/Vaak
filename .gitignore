@@ -50,3 +50,8 @@ logs/
 data/raw/
 data/processed/
 data/manifests/*.csv
+
+# mlflow
+
+mlflow/
+*mlflow.db

@@ -19,6 +19,22 @@ help:
 	@echo "  make clean        Remove generated files"
 
 
+.PHONY: version
+version:
+	@uv version
+
+.PHONY: bump-patch
+bump-patch:
+	uv version --bump patch
+
+.PHONY: bump-minor
+bump-minor:
+	uv version --bump minor
+
+.PHONY: bump-major
+bump-major:
+	uv version --bump major
+
 .PHONY: install
 install:
 	uv sync

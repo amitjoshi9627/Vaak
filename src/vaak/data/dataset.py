@@ -8,7 +8,6 @@ from torch.utils.data import Dataset
 
 from vaak.audio import AudioPipeline
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -49,7 +48,9 @@ class VaakDataset(Dataset[VaakSample]):
         self.manifest = manifest.loc[manifest["split"] == split].reset_index(drop=True)
 
         if max_samples is not None:
-            logger.info(f"Limiting {split} samples to {max_samples} samples out of {len(self.manifest)}")
+            logger.info(
+                f"Limiting {split} samples to {max_samples} samples out of {len(self.manifest)}"
+            )
             self.manifest = self.manifest.head(max_samples)
 
         if self.manifest.empty:
