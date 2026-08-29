@@ -1,3 +1,4 @@
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
@@ -14,6 +15,17 @@ from vaak.utils.tracker import MLflowTracker
 logger = get_logger(__name__)
 
 
+def format_duration(seconds: float) -> str:
+    """Format duration in seconds into a human-readable string."""
+    minutes, secs = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    if hours > 0:
+        return f"{int(hours)}h {int(minutes)}m {secs:.1f}s"
+    if minutes > 0:
+        return f"{int(minutes)}m {secs:.1f}s"
+    return f"{secs:.2f}s"
+
+
 @dataclass(frozen=True)
 class TrainingResult:
     """Summary of training metrics across epochs."""
@@ -21,6 +33,8 @@ class TrainingResult:
     best_val_loss: float
     train_losses: list[float]
     val_losses: list[float]
+    total_training_time_seconds: float
+    epoch_durations_seconds: list[float]
 
 
 class Trainer:
@@ -77,7 +91,6 @@ class Trainer:
             running_loss += loss.item() * batch_size
             total_samples += batch_size
 
-            # Mid-epoch logging
             if batch_idx % self.log_interval == 0 or batch_idx == num_batches:
                 current_loss = running_loss / total_samples
                 logger.info(
@@ -140,13 +153,19 @@ class Trainer:
         best_val_loss = float("inf")
         train_losses: list[float] = []
         val_losses: list[float] = []
+        epoch_durations: list[float] = []
 
         logger.info(f"Starting training on device: {self.device}")
+        total_start_time = time.perf_counter()
 
         for epoch in range(1, epochs + 1):
+            epoch_start_time = time.perf_counter()
+
             train_loss = self.train_epoch(train_loader, epoch)
             val_loss, val_acc = self.evaluate(val_loader)
 
+            epoch_duration = time.perf_counter() - epoch_start_time
+            epoch_durations.append(epoch_duration)
             train_losses.append(train_loss)
             val_losses.append(val_loss)
 
@@ -154,7 +173,8 @@ class Trainer:
                 f"Epoch {epoch} Summary | "
                 f"Train Loss: {train_loss:.4f} | "
                 f"Val Loss: {val_loss:.4f} | "
-                f"Val Acc: {val_acc:.4f}"
+                f"Val Acc: {val_acc:.4f} | "
+                f"Duration: {format_duration(epoch_duration)}"
             )
 
             if self.tracker is not None:
@@ -163,6 +183,7 @@ class Trainer:
                         "train_loss": train_loss,
                         "val_loss": val_loss,
                         "val_acc": val_acc,
+                        "epoch_duration_seconds": epoch_duration,
                     },
                     step=epoch,
                 )
@@ -172,10 +193,21 @@ class Trainer:
                 if self.checkpoint_dir is not None:
                     self._save_checkpoint("best_model.pt", epoch, val_loss)
 
+        total_duration = time.perf_counter() - total_start_time
+        logger.info(
+            f"Training Complete | Total Time: {format_duration(total_duration)} | "
+            f"Avg Epoch Time: {format_duration(total_duration / epochs)}"
+        )
+
+        if self.tracker is not None:
+            self.tracker.log_metrics({"total_training_time_seconds": total_duration})
+
         return TrainingResult(
             best_val_loss=best_val_loss,
             train_losses=train_losses,
             val_losses=val_losses,
+            total_training_time_seconds=total_duration,
+            epoch_durations_seconds=epoch_durations,
         )
 
     def _save_checkpoint(

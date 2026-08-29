@@ -1,4 +1,6 @@
 import argparse
+import json
+import shutil
 from pathlib import Path
 
 import torch
@@ -18,6 +20,7 @@ from vaak.models.heads.binary import BinaryLinearHead
 from vaak.training.trainer import Trainer
 from vaak.utils.tools import get_optimal_device
 from vaak.utils.tracker import MLflowTracker
+from vaak.utils.visualization import save_attack_benchmark_plot
 
 logger = get_logger(__name__)
 
@@ -35,7 +38,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    """Execute the full training and evaluation pipeline with MLflow tracking."""
+    """Execute the full training and evaluation pipeline with MLflow and registry."""
     configure_logging()
     args = parse_args()
 
@@ -47,7 +50,8 @@ def main() -> None:
         experiment_name=config.experiment_name,
         tracking_uri=project_root / "mlruns",
     )
-    tracker.start_run(run_name=f"{config.model.name}_baseline")
+
+    run_id = tracker.start_run(run_name=f"{config.model.name}_run")
 
     tracker.log_params(
         {
@@ -65,7 +69,7 @@ def main() -> None:
         }
     )
 
-    logger.info(f"Starting experiment: {config.experiment_name}")
+    logger.info(f"Starting experiment: {config.experiment_name} | Run ID: {run_id}")
     logger.info(f"Compute device: {device}")
 
     manifest_path = project_root / config.data.manifest
@@ -111,7 +115,7 @@ def main() -> None:
         batch_size=config.training.batch_size,
         shuffle=True,
         collate_fn=vaak_collate_fn,
-        num_workers=4,
+        num_workers=0,
         pin_memory=device.type == "cuda",
     )
 
@@ -120,7 +124,7 @@ def main() -> None:
         batch_size=config.training.batch_size,
         shuffle=False,
         collate_fn=vaak_collate_fn,
-        num_workers=4,
+        num_workers=0,
         pin_memory=device.type == "cuda",
     )
 
@@ -129,7 +133,7 @@ def main() -> None:
         batch_size=config.training.batch_size,
         shuffle=False,
         collate_fn=vaak_collate_fn,
-        num_workers=4,
+        num_workers=0,
         pin_memory=device.type == "cuda",
     )
 
@@ -148,7 +152,7 @@ def main() -> None:
     )
     criterion = nn.CrossEntropyLoss()
 
-    checkpoint_dir = project_root / "checkpoints" / config.experiment_name
+    checkpoint_dir = project_root / "checkpoints" / config.experiment_name / run_id
 
     trainer = Trainer(
         model=model,
@@ -198,6 +202,48 @@ def main() -> None:
             f"minDCF: {report.min_dcf:.4f} | "
             f"AUC: {report.auc:.4f}"
         )
+
+        plot_path = checkpoint_dir / "attack_auc_breakdown.png"
+        save_attack_benchmark_plot(report.attack_metrics, plot_path)
+        tracker.log_artifact(plot_path)
+
+        registry_dir = project_root / "registry"
+        registry_dir.mkdir(exist_ok=True)
+        champion_metrics_path = registry_dir / "champion_metrics.json"
+        champion_model_path = registry_dir / "champion_model.pt"
+
+        promote = False
+        if not champion_metrics_path.exists():
+            promote = True
+        else:
+            with open(champion_metrics_path) as f:
+                champion_metrics = json.load(f)
+
+            # Lower EER is better
+            if report.eer < champion_metrics.get("test_eer", float("inf")):
+                promote = True
+
+        if promote:
+            logger.info("🏆 New Champion Model! Promoting to registry...")
+            if best_checkpoint_path.exists():
+                shutil.copy2(best_checkpoint_path, champion_model_path)
+                with open(champion_metrics_path, "w") as f:
+                    json.dump(
+                        {
+                            "run_id": run_id,
+                            "test_eer": report.eer,
+                            "test_min_dcf": report.min_dcf,
+                            "test_auc": report.auc,
+                            "experiment_name": config.experiment_name,
+                        },
+                        f,
+                        indent=4,
+                    )
+        else:
+            logger.info(
+                "Model did not beat current champion. Artifacts safely archived."
+            )
+
     finally:
         tracker.end_run()
 

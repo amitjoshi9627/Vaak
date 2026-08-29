@@ -63,3 +63,4 @@ def test_trainer_fit_loop(tmp_path: Path) -> None:
     assert len(result.train_losses) == 2
     assert len(result.val_losses) == 2
     assert (tmp_path / "best_model.pt").exists()
+    assert result.total_training_time_seconds > 0.0

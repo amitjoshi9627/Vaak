@@ -56,3 +56,5 @@ data/manifests/*.csv
 mlflow/
 mlruns/
 *mlflow.db
+checkpoints/
+registry/

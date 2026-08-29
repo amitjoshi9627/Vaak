@@ -4,11 +4,13 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated
 
+import torch
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from vaak.audio.pipeline import AudioPipeline, AudioPipelineConfig
+from vaak.core.logging import get_logger
 from vaak.inference.predictor import VaakPredictor
 from vaak.models.backends.pooling import MeanPooling
 from vaak.models.detector import VaakDetector
@@ -18,6 +20,8 @@ from vaak.utils.tools import get_optimal_device
 
 predictor: VaakPredictor | None = None
 
+logger = get_logger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
@@ -26,12 +30,23 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     device = get_optimal_device()
 
-    # Initialize with untrained weights for the MVP wiring.
-    # Eventually, this will load the state_dict from best_model.pt.
     encoder = WavLMEncoder(freeze=True)
     backend = MeanPooling()
     head = BinaryLinearHead(input_dim=768)
     model = VaakDetector(encoder=encoder, backend=backend, head=head)
+
+    # Load the best model dynamically
+    project_root = Path(__file__).resolve().parents[3]
+    champion_path = project_root / "registry" / "champion_model.pt"
+
+    if champion_path.exists():
+        logger.info(f"Loading champion model from {champion_path}")
+        checkpoint = torch.load(champion_path, map_location=device, weights_only=True)
+        model.load_state_dict(checkpoint["model_state_dict"])
+    else:
+        logger.warning(
+            "No champion model found in registry! Initializing with untrained weights."
+        )
 
     pipeline = AudioPipeline(config=AudioPipelineConfig())
 

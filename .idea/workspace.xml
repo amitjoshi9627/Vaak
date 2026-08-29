@@ -5,17 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/vaak/utils/tracker.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/utils/test_tracker.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/utils/visualization.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/utils/test_visualization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlruns/1/051dac784cda4f7f95d7f919e7441f0a/artifacts/dummy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlruns/1/a466be6f9a854715adf3205ca1bd369c/artifacts/dummy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlruns/1/a51ed8c73fe34149abd4b40d02fd749d/artifacts/dummy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlruns/1/f7414263c2b44846ac7d79871339df62/artifacts/dummy.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/api/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/api/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/config/base.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/base.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/training/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/training/trainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/utils/tracker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/utils/tracker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_trainer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,28 +51,29 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python tests.Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_dataset_root.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for tests.integration.test_models_pipeline.test_forward_pass.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_trainer.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.prepare_asvspoof.executor&quot;: &quot;Run&quot;,
-    &quot;Python.registry.executor&quot;: &quot;Run&quot;,
-    &quot;Python.smoke_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_pipeline.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_registry.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/amit/PycharmProjects/Vaak/tests/audio&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly.executor": "Run",
+    "Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_dataset_root.executor": "Debug",
+    "Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository.executor": "Debug",
+    "Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id.executor": "Run",
+    "Python tests.Python tests for tests.integration.test_models_pipeline.test_forward_pass.executor": "Run",
+    "Python tests.Python tests for tests.utils.test_visualization.test_save_attack_benchmark_plot.executor": "Run",
+    "Python tests.Python tests in test_trainer.py.executor": "Run",
+    "Python.prepare_asvspoof.executor": "Run",
+    "Python.registry.executor": "Run",
+    "Python.smoke_test.executor": "Run",
+    "Python.test_pipeline.executor": "Run",
+    "Python.test_registry.executor": "Run",
+    "Python.train.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/amit/PycharmProjects/Vaak/tests/audio"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tests/audio" />
@@ -78,7 +84,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train">
+  <component name="RunManager" selected="Python tests.Python tests for tests.utils.test_visualization.test_save_attack_benchmark_plot">
     <configuration name="prepare_asvspoof" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Vaak" />
       <option name="ENV_FILES" value="" />
@@ -125,22 +131,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Vaak" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.data.test_asvspoof2019.test_labels_are_mapped_correctly&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Python tests for tests.integration.test_models_pipeline.test_forward_pass" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Vaak" />
       <option name="ENV_FILES" value="" />
@@ -154,6 +144,22 @@
       <option name="RUN_TOOL" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;tests.integration.test_models_pipeline.test_forward_pass&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.utils.test_visualization.test_save_attack_benchmark_plot" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Vaak" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.utils.test_visualization.test_save_attack_benchmark_plot&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -175,11 +181,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for tests.utils.test_visualization.test_save_attack_benchmark_plot" />
         <item itemvalue="Python.train" />
         <item itemvalue="Python.prepare_asvspoof" />
         <item itemvalue="Python tests.Python tests in test_trainer.py" />
         <item itemvalue="Python tests.Python tests for tests.integration.test_models_pipeline.test_forward_pass" />
-        <item itemvalue="Python tests.Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly" />
       </list>
     </recent_temporary>
   </component>
