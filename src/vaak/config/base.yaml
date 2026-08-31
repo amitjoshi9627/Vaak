@@ -2,16 +2,16 @@ experiment_name: "wavlm_base_asvspoof"
 
 model:
   name: "wavlm_base"
-  pretrained: "microsoft/wavlm-base"
+  pretrained_model_name: "microsoft/wavlm-base"
 
 data:
   manifest: "data/manifests/asvspoof2019_la.csv"
   sample_rate: 16000
   chunk_duration_seconds: 4.0
   hop_duration_seconds: 2.0
-  max_samples: 8192
+  max_samples: 12
 
 training:
   batch_size: 16
   learning_rate: 0.0001
-  epochs: 5
+  epochs: 2

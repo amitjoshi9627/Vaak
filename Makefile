@@ -103,6 +103,15 @@ train:
 mlflow-ui:
 	$(MLFLOW) ui --backend-store-uri $(MLFLOW_DB) --port $(MLFLOW_PORT)
 
+.PHONY: clean-experiments
+clean-experiments:
+	@echo "Cleaning MLflow runs, checkpoints, and registry..."
+	rm -rf mlruns/
+	rm -rf checkpoints/
+	rm -rf registry/
+	rm -f mlflow.db
+	@echo "✨ Experiment tracking environment is clean!"
+
 .PHONY: serve
 serve:
 	$(UVICORN) vaak.api.server:app --reload --port $(API_PORT)

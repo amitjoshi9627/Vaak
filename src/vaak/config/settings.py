@@ -1,3 +1,4 @@
+from enum import StrEnum
 from pathlib import Path
 
 import yaml
@@ -6,13 +7,25 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from vaak.core.exceptions import ConfigurationError
 
 
+class LayerStrategy(StrEnum):
+    LAST = "last"
+    WEIGHTED_SUM = "weighted_sum"
+
+
+class PoolingStrategy(StrEnum):
+    ASP = "asp"
+    MEAN = "mean"
+
+
 class ModelConfig(BaseModel):
     """Model configuration."""
 
     model_config = ConfigDict(extra="forbid")
 
     name: str
-    pretrained: str
+    pretrained_model_name: str
+    layer_strategy: LayerStrategy = LayerStrategy.LAST
+    pooling_strategy: PoolingStrategy = PoolingStrategy.MEAN
 
 
 class DataConfig(BaseModel):
@@ -32,9 +45,11 @@ class TrainingConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
+    seed: int = Field(default=42, description="Random seed for reproducibility")
     batch_size: int = Field(default=8, gt=0)
     learning_rate: float = Field(default=1e-4, gt=0)
     epochs: int = Field(default=5, gt=0)
+    weight_decay: float = Field(default=1e-2, gt=0)
 
 
 class VaakConfig(BaseModel):

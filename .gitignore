@@ -58,3 +58,6 @@ mlruns/
 *mlflow.db
 checkpoints/
 registry/
+
+# experiment yaml
+experiments/

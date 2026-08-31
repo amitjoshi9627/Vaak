@@ -10,13 +10,11 @@ from torch.utils.data import DataLoader
 from vaak.audio.pipeline import AudioPipeline, AudioPipelineConfig
 from vaak.config.settings import load_config
 from vaak.core.logging import configure_logging, get_logger
-from vaak.data.dataset import VaakDataset, vaak_collate_fn
+from vaak.data import EvaluationDataset, TrainingDataset
+from vaak.data.dataset import vaak_collate_fn
 from vaak.data.manifest import load_manifest
 from vaak.evaluation.evaluator import Evaluator
-from vaak.models.backends.pooling import MeanPooling
-from vaak.models.detector import VaakDetector
-from vaak.models.encoders.wavlm import WavLMEncoder
-from vaak.models.heads.binary import BinaryLinearHead
+from vaak.models.factory import build_model_from_config
 from vaak.training.trainer import Trainer
 from vaak.utils.tools import get_optimal_device
 from vaak.utils.tracker import MLflowTracker
@@ -57,13 +55,16 @@ def main() -> None:
         {
             "experiment_name": config.experiment_name,
             "model_name": config.model.name,
-            "pretrained": config.model.pretrained,
+            "pretrained_model_name": config.model.pretrained_model_name,
+            "layer_strategy": config.model.layer_strategy,
+            "pooling_strategy": config.model.pooling_strategy,
             "sample_rate": config.data.sample_rate,
             "chunk_duration_seconds": config.data.chunk_duration_seconds,
             "hop_duration_seconds": config.data.hop_duration_seconds,
             "max_samples": config.data.max_samples,
             "batch_size": config.training.batch_size,
             "learning_rate": config.training.learning_rate,
+            "weight_decay": config.training.weight_decay,
             "epochs": config.training.epochs,
             "device": device.type,
         }
@@ -83,30 +84,11 @@ def main() -> None:
         )
     )
 
-    train_dataset = VaakDataset(
+    train_dataset = TrainingDataset(
         manifest=manifest,
         split="train",
         audio_pipeline=audio_pipeline,
         project_root=project_root,
-        random_crop=True,
-        max_samples=config.data.max_samples,
-    )
-
-    val_dataset = VaakDataset(
-        manifest=manifest,
-        split="val",
-        audio_pipeline=audio_pipeline,
-        project_root=project_root,
-        random_crop=False,
-        max_samples=config.data.max_samples,
-    )
-
-    test_dataset = VaakDataset(
-        manifest=manifest,
-        split="test",
-        audio_pipeline=audio_pipeline,
-        project_root=project_root,
-        random_crop=False,
         max_samples=config.data.max_samples,
     )
 
@@ -119,36 +101,46 @@ def main() -> None:
         pin_memory=device.type == "cuda",
     )
 
+    val_dataset = EvaluationDataset(
+        manifest=manifest,
+        split="val",
+        audio_pipeline=audio_pipeline,
+        project_root=project_root,
+        max_samples=config.data.max_samples,
+    )
+
     val_loader = DataLoader(
         val_dataset,
-        batch_size=config.training.batch_size,
+        batch_size=1,
         shuffle=False,
         collate_fn=vaak_collate_fn,
         num_workers=0,
         pin_memory=device.type == "cuda",
+    )
+
+    test_dataset = EvaluationDataset(
+        manifest=manifest,
+        split="test",
+        audio_pipeline=audio_pipeline,
+        project_root=project_root,
+        max_samples=config.data.max_samples,
     )
 
     test_loader = DataLoader(
         test_dataset,
-        batch_size=config.training.batch_size,
+        batch_size=1,
         shuffle=False,
         collate_fn=vaak_collate_fn,
         num_workers=0,
         pin_memory=device.type == "cuda",
     )
 
-    encoder = WavLMEncoder(
-        pretrained_name=config.model.pretrained,
-        freeze=True,
-    )
-    backend = MeanPooling()
-    head = BinaryLinearHead(input_dim=768)
-
-    model = VaakDetector(encoder=encoder, backend=backend, head=head)
+    model = build_model_from_config(config).to(device)
 
     optimizer = torch.optim.AdamW(
         model.parameters(),
         lr=config.training.learning_rate,
+        weight_decay=config.training.weight_decay,
     )
     criterion = nn.CrossEntropyLoss()
 
@@ -179,34 +171,48 @@ def main() -> None:
             )
             model.load_state_dict(checkpoint["model_state_dict"])
 
-        logger.info("Running final evaluation on test split...")
+        logger.info("Running full utterance-level evaluation on test split...")
         evaluator = Evaluator(model=model, device=device)
         report = evaluator.evaluate(test_loader)
 
         test_metrics = {
             "test_eer": report.eer,
-            "test_min_dcf": report.min_dcf,
+            "test_norm_min_dcf": report.norm_min_dcf,
             "test_auc": report.auc,
         }
 
-        # Log disaggregated attack metrics
+        # Log pairwise attack metrics
         for attack_id, metrics in report.attack_metrics.items():
-            test_metrics[f"test_eer_{attack_id}"] = metrics["eer"]
-            test_metrics[f"test_min_dcf_{attack_id}"] = metrics["min_dcf"]
-            test_metrics[f"test_auc_{attack_id}"] = metrics["auc"]
+            test_metrics[f"test_eer_{attack_id}"] = metrics["attack_vs_bonafide_eer"]
+            test_metrics[f"test_norm_min_dcf_{attack_id}"] = metrics[
+                "attack_vs_bonafide_norm_min_dcf"
+            ]
+            test_metrics[f"test_auc_{attack_id}"] = metrics["attack_vs_bonafide_auc"]
 
         tracker.log_metrics(test_metrics)
 
         logger.info(
             f"Final Test Metrics - EER: {report.eer:.4f} | "
-            f"minDCF: {report.min_dcf:.4f} | "
+            f"norm_minDCF: {report.norm_min_dcf:.4f} | "
             f"AUC: {report.auc:.4f}"
         )
 
-        plot_path = checkpoint_dir / "attack_auc_breakdown.png"
-        save_attack_benchmark_plot(report.attack_metrics, plot_path)
+        # Plot artifact
+        plot_path = checkpoint_dir / "attack_benchmark_breakdown.png"
+        save_attack_benchmark_plot(
+            {
+                atk: {
+                    "eer": m["attack_vs_bonafide_eer"],
+                    "auc": m["attack_vs_bonafide_auc"],
+                    "min_dcf": m["attack_vs_bonafide_norm_min_dcf"],
+                }
+                for atk, m in report.attack_metrics.items()
+            },
+            plot_path,
+        )
         tracker.log_artifact(plot_path)
 
+        # Champion Registry Gate
         registry_dir = project_root / "registry"
         registry_dir.mkdir(exist_ok=True)
         champion_metrics_path = registry_dir / "champion_metrics.json"
@@ -232,7 +238,7 @@ def main() -> None:
                         {
                             "run_id": run_id,
                             "test_eer": report.eer,
-                            "test_min_dcf": report.min_dcf,
+                            "test_norm_min_dcf": report.norm_min_dcf,
                             "test_auc": report.auc,
                             "experiment_name": config.experiment_name,
                         },

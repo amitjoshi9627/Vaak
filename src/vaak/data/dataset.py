@@ -1,4 +1,5 @@
 import logging
+from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import TypedDict
 
@@ -6,13 +7,21 @@ import pandas as pd
 import torch
 from torch.utils.data import Dataset
 
-from vaak.audio import AudioPipeline
+from vaak.audio.pipeline import AudioPipeline
 
 logger = logging.getLogger(__name__)
 
 
 class VaakSample(TypedDict):
-    """A single training/evaluation sample."""
+    """Single dataset sample.
+
+    Training:
+        audio has shape [L].
+
+    Evaluation:
+        audio has shape [K, L], where K is the number of
+        overlapping chunks for the utterance.
+    """
 
     audio: torch.Tensor
     label: int
@@ -23,7 +32,14 @@ class VaakSample(TypedDict):
 
 
 class VaakBatch(TypedDict):
-    """A batch of Vaak samples."""
+    """Batch produced by the training/evaluation collator.
+
+    Training batches contain:
+        audio -> [B, L]
+
+    Evaluation with batch_size=1 contains:
+        audio -> [1, K, L]
+    """
 
     audio: torch.Tensor
     labels: torch.Tensor
@@ -33,8 +49,8 @@ class VaakBatch(TypedDict):
     attack_ids: list[str | None]
 
 
-class VaakDataset(Dataset[VaakSample]):
-    """PyTorch dataset backed by a Vaak manifest."""
+class BaseVaakDataset(Dataset[VaakSample], ABC):
+    """Base dataset backed by a Vaak manifest."""
 
     def __init__(
         self,
@@ -42,14 +58,15 @@ class VaakDataset(Dataset[VaakSample]):
         split: str,
         audio_pipeline: AudioPipeline,
         project_root: Path,
-        random_crop: bool = False,
         max_samples: int | None = None,
     ) -> None:
         self.manifest = manifest.loc[manifest["split"] == split].reset_index(drop=True)
 
         if max_samples is not None:
-            logger.info(
-                f"Limiting {split} samples to {max_samples} samples out of {len(self.manifest)}"
+            logger.warning(
+                "Limiting %s split to %d samples (non-benchmark/debug mode).",
+                split,
+                max_samples,
             )
             self.manifest = self.manifest.head(max_samples)
 
@@ -58,54 +75,29 @@ class VaakDataset(Dataset[VaakSample]):
 
         self.audio_pipeline = audio_pipeline
         self.project_root = project_root
-        self.random_crop = random_crop
 
     def __len__(self) -> int:
+        """Return the number of samples."""
         return len(self.manifest)
 
+    @abstractmethod
     def __getitem__(self, index: int) -> VaakSample:
-        row = self.manifest.iloc[index]
-
-        audio_path = self.project_root / str(row["audio_path"])
-
-        chunks = self.audio_pipeline.process(audio_path)
-
-        audio = self._random_crop(chunks) if self.random_crop else chunks[0]
-
-        attack_id = row["attack_id"]
-
-        return {
-            "audio": audio,
-            "label": int(row["label"]),
-            "sample_id": str(row["sample_id"]),
-            "speaker_id": str(row["speaker_id"]),
-            "dataset": str(row["dataset"]),
-            "attack_id": (None if pd.isna(attack_id) else str(attack_id)),
-        }
-
-    @staticmethod
-    def _random_crop(chunks: torch.Tensor) -> torch.Tensor:
-        """Select one randomly sampled chunk."""
-
-        if chunks.ndim != 2:
-            raise ValueError("Expected chunks with shape [num_chunks, samples].")
-
-        index = int(
-            torch.randint(
-                low=0,
-                high=chunks.shape[0],
-                size=(1,),
-            ).item()
-        )
-
-        return chunks[index]
+        """Return one dataset sample."""
+        raise NotImplementedError
 
 
 def vaak_collate_fn(
     samples: list[VaakSample],
 ) -> VaakBatch:
-    """Collate Vaak samples into a training batch."""
+    """Collate samples into a batch.
 
+    This collator is safe for both:
+    - training samples: [L]
+    - evaluation samples when batch_size=1: [K, L]
+
+    Evaluation should use batch_size=1 because different utterances
+    may contain different numbers of chunks.
+    """
     if not samples:
         raise ValueError("Cannot collate an empty batch.")
 

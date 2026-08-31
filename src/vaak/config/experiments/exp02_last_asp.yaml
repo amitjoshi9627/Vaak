@@ -1,0 +1,20 @@
+experiment_name: "wavlm_base_asvspoof"
+
+data:
+  manifest: "data/manifests/asvspoof2019_la.json"
+  sample_rate: 16000
+  chunk_duration_seconds: 4.0
+  hop_duration_seconds: 2.0
+  max_samples: null
+
+model:
+  name: "exp02_last_asp"
+  pretrained_model_name: "microsoft/wavlm-base"
+  layer_strategy: "last"
+  pooling: "asp"
+
+training:
+  batch_size: 16
+  learning_rate: 0.0001
+  epochs: 15
+  weight_decay: 0.01

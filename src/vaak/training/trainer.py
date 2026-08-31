@@ -120,13 +120,57 @@ class Trainer:
             audio = batch["audio"].to(self.device)
             labels = batch["labels"].to(self.device)
 
-            logits = cast(torch.Tensor, self.model(audio))
-            loss = cast(torch.Tensor, self.criterion(logits, labels))
+            if audio.ndim == 2:
+                # Standard batch:
+                # [B, L]
+                logits = cast(torch.Tensor, self.model(audio))
 
-            batch_size = audio.size(0)
+            elif audio.ndim == 3:
+                # Utterance-level evaluation:
+                # [1, K, L]
+                if audio.size(0) != 1:
+                    raise ValueError(
+                        "EvaluationDataset requires batch_size=1. "
+                        f"Got batch size {audio.size(0)}."
+                    )
+
+                # Remove the DataLoader batch dimension.
+                # [1, K, L] -> [K, L]
+                chunks = audio.squeeze(0)
+
+                # Run the model independently on every chunk.
+                # [K, L] -> [K, 2]
+                chunk_logits = cast(torch.Tensor, self.model(chunks))
+
+                # Aggregate chunk logits into ONE utterance prediction.
+                # [K, 2] -> [1, 2]
+                logits = chunk_logits.mean(
+                    dim=0,
+                    keepdim=True,
+                )
+
+            else:
+                raise ValueError(
+                    "Expected audio with shape [B, L] or [1, K, L], "
+                    f"got {tuple(audio.shape)}."
+                )
+
+            loss = cast(
+                torch.Tensor,
+                self.criterion(logits, labels),
+            )
+
+            batch_size = labels.size(0)
+
             running_loss += loss.item() * batch_size
-            predictions = torch.argmax(logits, dim=1)
+
+            predictions = torch.argmax(
+                logits,
+                dim=1,
+            )
+
             correct_predictions += (predictions == labels).sum().item()
+
             total_samples += batch_size
 
         average_loss = running_loss / total_samples if total_samples > 0 else 0.0
