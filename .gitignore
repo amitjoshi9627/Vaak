@@ -60,4 +60,4 @@ checkpoints/
 registry/
 
 # experiment yaml
-experiments/
+src/vaak/config/experiments
