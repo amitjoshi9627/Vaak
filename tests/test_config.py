@@ -81,21 +81,21 @@ def test_unknown_field_fails(tmp_path: Path) -> None:
 
     config_file.write_text(
         """
-experiment_name: test_experiment
+            experiment_name: test_experiment
 
-model:
-  name: wavlm_base
-  pretrained: microsoft/wavlm-base
-  typo_field: true
+            model:
+              name: wavlm_base
+              pretrained: microsoft/wavlm-base
+              typo_field: true
 
-data:
-  manifest: data/train.csv
+            data:
+              manifest: data/train.csv
 
-training:
-  batch_size: 8
-  learning_rate: 0.0001
-  epochs: 5
-""",
+            training:
+              batch_size: 8
+              learning_rate: 0.0001
+              epochs: 5
+            """,
         encoding="utf-8",
     )
 

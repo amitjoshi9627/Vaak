@@ -1,5 +1,11 @@
 experiment_name: "wavlm_weighted_sum_mean"
 
+model:
+  name: "wavlm-base"
+  pretrained_model_name: "microsoft/wavlm-base"
+  layer_strategy: "weighted_sum"
+  pooling_strategy: "mean"
+
 data:
   manifest: "data/manifests/asvspoof2019_la.csv"
   sample_rate: 16000
@@ -7,16 +13,9 @@ data:
   hop_duration_seconds: 2.0
   max_train_samples: 1024
   max_eval_samples: 2048
-  max_test_samples: 2048
-
-model:
-  name: "exp02_last_asp"
-  pretrained_model_name: "microsoft/wavlm-base"
-  layer_strategy: "weighted_sum"
-  pooling_strategy: "mean"
+  max_test_samples: 8192
 
 training:
   batch_size: 16
   learning_rate: 0.0001
-  epochs: 15
-  weight_decay: 0.01
+  epochs: 5

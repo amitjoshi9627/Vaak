@@ -1,6 +1,6 @@
 [project]
 name = "vaak"
-version = "0.4.2"
+version = "0.4.3"
 description = "Vaak — an ear that's trained to notice."
 readme = "README.md"
 requires-python = ">=3.12"
