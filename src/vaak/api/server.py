@@ -10,11 +10,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from vaak.audio.pipeline import AudioPipeline, AudioPipelineConfig
+from vaak.config.settings import load_config
 from vaak.core.logging import get_logger
 from vaak.inference.predictor import VaakPredictor
 from vaak.models.backends.pooling import MeanPooling
 from vaak.models.detector import VaakDetector
 from vaak.models.encoders.wavlm import WavLMEncoder
+from vaak.models.factory import build_model_from_config
 from vaak.models.heads.binary import BinaryLinearHead
 from vaak.utils.tools import get_optimal_device
 
@@ -25,27 +27,33 @@ logger = get_logger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    """Manage the application lifecycle and model initialization."""
+    """Manage the application lifecycle and dynamic model initialization."""
     global predictor
 
     device = get_optimal_device()
-
-    encoder = WavLMEncoder(freeze=True)
-    backend = MeanPooling()
-    head = BinaryLinearHead(input_dim=768)
-    model = VaakDetector(encoder=encoder, backend=backend, head=head)
-
-    # Load the best model dynamically
     project_root = Path(__file__).resolve().parents[3]
-    champion_path = project_root / "registry" / "champion_model.pt"
 
-    if champion_path.exists():
-        logger.info(f"Loading champion model from {champion_path}")
+    champion_path = project_root / "registry" / "champion_model.pt"
+    champion_config_path = project_root / "registry" / "champion_config.yaml"
+
+    if champion_path.exists() and champion_config_path.exists():
+        logger.info(f"Loading champion config from {champion_config_path}")
+        config = load_config(champion_config_path)
+
+        model = build_model_from_config(config)
+
+        logger.info(f"Loading champion weights from {champion_path}")
         checkpoint = torch.load(champion_path, map_location=device, weights_only=True)
         model.load_state_dict(checkpoint["model_state_dict"])
     else:
         logger.warning(
-            "No champion model found in registry! Initializing with untrained weights."
+            "Champion model or config missing! Falling back to untrained baseline."
+        )
+
+        model = VaakDetector(
+            encoder=WavLMEncoder(freeze=True),
+            backend=MeanPooling(),
+            head=BinaryLinearHead(input_dim=768),
         )
 
     pipeline = AudioPipeline(config=AudioPipelineConfig())

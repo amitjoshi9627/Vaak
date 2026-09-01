@@ -20,6 +20,7 @@ class WavLMEncoder(nn.Module):
         self.model = WavLMModel.from_pretrained(
             pretrained_name,
             output_hidden_states=extract_all_layers,
+            layerdrop=0.0,
         )
 
         if freeze:

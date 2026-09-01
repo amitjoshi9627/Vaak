@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="" />
+    <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/scripts/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/api/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/api/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/models/encoders/wavlm.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/models/encoders/wavlm.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

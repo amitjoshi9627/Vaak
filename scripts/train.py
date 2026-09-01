@@ -237,6 +237,7 @@ def main() -> None:
             logger.info("🏆 New Champion Model! Promoting to registry...")
             if best_checkpoint_path.exists():
                 shutil.copy2(best_checkpoint_path, champion_model_path)
+                shutil.copy2(args.config, registry_dir / "champion_config.yaml")
                 with open(champion_metrics_path, "w") as f:
                     json.dump(
                         {
