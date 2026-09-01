@@ -1,5 +1,6 @@
 import argparse
 import json
+import math
 import shutil
 from pathlib import Path
 
@@ -16,7 +17,7 @@ from vaak.data.manifest import load_manifest
 from vaak.evaluation.evaluator import Evaluator
 from vaak.models.factory import build_model_from_config
 from vaak.training.trainer import Trainer
-from vaak.utils.tools import get_optimal_device
+from vaak.utils.tools import get_optimal_device, set_seed
 from vaak.utils.tracker import MLflowTracker
 from vaak.utils.visualization import save_attack_benchmark_plot
 
@@ -37,6 +38,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     """Execute the full training and evaluation pipeline with MLflow and registry."""
+    set_seed(seed=42)
     configure_logging()
     args = parse_args()
 
@@ -106,7 +108,7 @@ def main() -> None:
         split="val",
         audio_pipeline=audio_pipeline,
         project_root=project_root,
-        max_samples=config.data.max_samples,
+        max_samples=2048,
     )
 
     val_loader = DataLoader(
@@ -123,7 +125,7 @@ def main() -> None:
         split="test",
         audio_pipeline=audio_pipeline,
         project_root=project_root,
-        max_samples=config.data.max_samples,
+        max_samples=2048,
     )
 
     test_loader = DataLoader(
@@ -219,15 +221,15 @@ def main() -> None:
         champion_model_path = registry_dir / "champion_model.pt"
 
         promote = False
-        if not champion_metrics_path.exists():
-            promote = True
-        else:
-            with open(champion_metrics_path) as f:
-                champion_metrics = json.load(f)
-
-            # Lower EER is better
-            if report.eer < champion_metrics.get("test_eer", float("inf")):
+        if not math.isinf(report.eer) and not math.isnan(report.eer):
+            if not champion_metrics_path.exists():
                 promote = True
+            else:
+                with open(champion_metrics_path) as f:
+                    champion_metrics = json.load(f)
+
+                if report.eer < champion_metrics.get("test_eer", float("inf")):
+                    promote = True
 
         if promote:
             logger.info("🏆 New Champion Model! Promoting to registry...")
@@ -247,7 +249,7 @@ def main() -> None:
                     )
         else:
             logger.info(
-                "Model did not beat current champion. Artifacts safely archived."
+                "Model did not beat current champion or produced invalid metrics."
             )
 
     finally:

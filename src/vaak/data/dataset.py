@@ -68,7 +68,10 @@ class BaseVaakDataset(Dataset[VaakSample], ABC):
                 split,
                 max_samples,
             )
-            self.manifest = self.manifest.head(max_samples)
+            self.manifest = self.manifest.sample(
+                n=max_samples,
+                random_state=42,
+            )
 
         if self.manifest.empty:
             raise ValueError(f"No samples found for split '{split}'.")

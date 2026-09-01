@@ -5,39 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp02_last_asp.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp03_last_mean.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp04_weighted_sum_asp.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp05_weighted_sum_mean.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/data/evaluation_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/data/training_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/models/backends/aggregation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vaak/models/factory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/evaluation/test_evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/models/test_aggregation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/models/test_detector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/models/test_encoders.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/models/test_factory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/models/test_pooling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/config/base.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/base.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/data/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp02_last_asp.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp02_last_asp.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp03_last_mean.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp03_last_mean.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp04_weighted_sum_asp.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp04_weighted_sum_asp.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp05_weighted_sum_mean.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp05_weighted_sum_mean.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/evaluation/evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/evaluation/evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/models/backends/pooling.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/models/backends/pooling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/models/detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/models/detector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/models/encoders/wavlm.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/models/encoders/wavlm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/training/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/training/trainer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/utils/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/utils/tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/test_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/test_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/integration/test_models_pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/integration/test_models_pipeline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/utils/visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/utils/visualization.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,33 +44,33 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python tests.Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly.executor": "Run",
-    "Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_dataset_root.executor": "Debug",
-    "Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository.executor": "Debug",
-    "Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id.executor": "Run",
-    "Python tests.Python tests for tests.integration.test_models_pipeline.test_forward_pass.executor": "Run",
-    "Python tests.Python tests for tests.test_config.test_config_loads.executor": "Debug",
-    "Python tests.Python tests for tests.test_config.test_invalid_training_value_fails.executor": "Run",
-    "Python tests.Python tests for tests.utils.test_visualization.test_save_attack_benchmark_plot.executor": "Run",
-    "Python tests.Python tests in test_config.py.executor": "Run",
-    "Python tests.Python tests in test_encoders.py.executor": "Run",
-    "Python tests.Python tests in test_trainer.py.executor": "Run",
-    "Python.prepare_asvspoof.executor": "Run",
-    "Python.registry.executor": "Run",
-    "Python.smoke_test.executor": "Run",
-    "Python.test_pipeline.executor": "Run",
-    "Python.test_registry.executor": "Run",
-    "Python.train.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/amit/PycharmProjects/Vaak/src/vaak/config/experiments"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests for tests.data.test_asvspoof2019.test_labels_are_mapped_correctly.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_dataset_root.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests for tests.data.test_asvspoof2019.test_paths_are_relative_to_repository.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests for tests.data.test_manifest.test_manifest_preserves_attack_id.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for tests.integration.test_models_pipeline.test_forward_pass.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for tests.test_config.test_config_loads.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests for tests.test_config.test_invalid_training_value_fails.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for tests.utils.test_visualization.test_save_attack_benchmark_plot.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_config.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_encoders.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_trainer.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.prepare_asvspoof.executor&quot;: &quot;Run&quot;,
+    &quot;Python.registry.executor&quot;: &quot;Run&quot;,
+    &quot;Python.smoke_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_pipeline.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_registry.executor&quot;: &quot;Run&quot;,
+    &quot;Python.train.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/amit/PycharmProjects/Vaak/src/vaak/config/experiments&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/vaak/config/experiments" />
@@ -105,7 +82,30 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests in test_config.py">
+  <component name="RunManager" selected="Python.prepare_asvspoof">
+    <configuration name="prepare_asvspoof" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Vaak" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/prepare_asvspoof.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Python tests for tests.test_config.test_config_loads" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Vaak" />
       <option name="ENV_FILES" value="" />
@@ -135,22 +135,6 @@
       <option name="RUN_TOOL" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;tests.test_config.test_invalid_training_value_fails&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for tests.utils.test_visualization.test_save_attack_benchmark_plot" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Vaak" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.utils.test_visualization.test_save_attack_benchmark_plot&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -188,11 +172,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.prepare_asvspoof" />
         <item itemvalue="Python tests.Python tests in test_config.py" />
         <item itemvalue="Python tests.Python tests for tests.test_config.test_invalid_training_value_fails" />
         <item itemvalue="Python tests.Python tests for tests.test_config.test_config_loads" />
         <item itemvalue="Python tests.Python tests in test_encoders.py" />
-        <item itemvalue="Python tests.Python tests for tests.utils.test_visualization.test_save_attack_benchmark_plot" />
       </list>
     </recent_temporary>
   </component>

@@ -13,14 +13,14 @@ from vaak.data.dataset import VaakBatch
 def compute_eer(y_true: np.ndarray, y_scores: np.ndarray) -> tuple[float, float]:
     """Compute Equal Error Rate (EER) and operating threshold."""
     if len(np.unique(y_true)) < 2:
-        return float("nan"), float("nan")
+        return float("inf"), 0.5
 
     fpr, tpr, thresholds = roc_curve(y_true, y_scores, pos_label=1)
     fnr = 1 - tpr
     diffs = np.absolute(fnr - fpr)
 
     if np.all(np.isnan(diffs)):
-        return float("nan"), float("nan")
+        return float("inf"), 0.5
 
     eer_index = int(np.nanargmin(diffs))
     eer = float((fpr[eer_index] + fnr[eer_index]) / 2.0)
@@ -101,9 +101,14 @@ class Evaluator:
         y_true = np.array(labels, dtype=int)
         y_scores = np.array(utterance_scores, dtype=float)
 
-        global_eer, global_threshold = compute_eer(y_true, y_scores)
-        global_auc = float(roc_auc_score(y_true, y_scores))
-        global_min_dcf = compute_normalized_min_dcf(y_true, y_scores)
+        if len(np.unique(y_true)) >= 2:
+            global_eer, global_threshold = compute_eer(y_true, y_scores)
+            global_auc = float(roc_auc_score(y_true, y_scores))
+            global_min_dcf = compute_normalized_min_dcf(y_true, y_scores)
+        else:
+            global_eer, global_threshold = float("inf"), 0.5
+            global_auc = 0.0
+            global_min_dcf = float("inf")
 
         # Disaggregated pairwise evaluation: Bona Fide vs. Attack Axx
         attack_metrics: dict[str, dict[str, float]] = {}
@@ -121,12 +126,16 @@ class Evaluator:
                 sub_eer, _ = compute_eer(sub_y_true, sub_y_scores)
                 sub_auc = float(roc_auc_score(sub_y_true, sub_y_scores))
                 sub_dcf = compute_normalized_min_dcf(sub_y_true, sub_y_scores)
+            else:
+                sub_eer = float("inf")
+                sub_auc = 0.0
+                sub_dcf = float("inf")
 
-                attack_metrics[atk] = {
-                    "attack_vs_bonafide_eer": sub_eer,
-                    "attack_vs_bonafide_auc": sub_auc,
-                    "attack_vs_bonafide_norm_min_dcf": sub_dcf,
-                }
+            attack_metrics[atk] = {
+                "attack_vs_bonafide_eer": sub_eer,
+                "attack_vs_bonafide_auc": sub_auc,
+                "attack_vs_bonafide_norm_min_dcf": sub_dcf,
+            }
 
         return EvaluationReport(
             eer=global_eer,
