@@ -5,7 +5,9 @@ data:
   sample_rate: 16000
   chunk_duration_seconds: 4.0
   hop_duration_seconds: 2.0
-  max_samples: null
+  max_train_samples: 1024
+  max_eval_samples: 2048
+  max_test_samples: 2048
 
 model:
   name: "exp02_last_asp"

@@ -63,7 +63,9 @@ def main() -> None:
             "sample_rate": config.data.sample_rate,
             "chunk_duration_seconds": config.data.chunk_duration_seconds,
             "hop_duration_seconds": config.data.hop_duration_seconds,
-            "max_samples": config.data.max_samples,
+            "max_train_samples": config.data.max_train_samples,
+            "max_eval_samples": config.data.max_eval_samples,
+            "max_test_samples": config.data.max_test_samples,
             "batch_size": config.training.batch_size,
             "learning_rate": config.training.learning_rate,
             "weight_decay": config.training.weight_decay,
@@ -91,7 +93,7 @@ def main() -> None:
         split="train",
         audio_pipeline=audio_pipeline,
         project_root=project_root,
-        max_samples=config.data.max_samples,
+        max_samples=config.data.max_train_samples,
     )
 
     train_loader = DataLoader(
@@ -108,7 +110,7 @@ def main() -> None:
         split="val",
         audio_pipeline=audio_pipeline,
         project_root=project_root,
-        max_samples=2048,
+        max_samples=config.data.max_eval_samples,
     )
 
     val_loader = DataLoader(
@@ -125,7 +127,7 @@ def main() -> None:
         split="test",
         audio_pipeline=audio_pipeline,
         project_root=project_root,
-        max_samples=2048,
+        max_samples=config.data.max_test_samples,
     )
 
     test_loader = DataLoader(

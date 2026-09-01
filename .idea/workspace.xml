@@ -6,15 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/config/base.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/base.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp02_last_asp.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp02_last_asp.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp03_last_mean.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp03_last_mean.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp04_weighted_sum_asp.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp04_weighted_sum_asp.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp05_weighted_sum_mean.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp05_weighted_sum_mean.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/data/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/evaluation/evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/evaluation/evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/utils/visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/utils/visualization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

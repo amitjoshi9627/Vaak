@@ -16,11 +16,16 @@ def test_config_loads(tmp_path: Path) -> None:
             model:
               name: model_name
               pretrained_model_name: models/model_name
+              layer_strategy: "last"
+              pooling_strategy: "asp"
 
             data:
               manifest: data/train.csv
               sample_rate: 16000
               chunk_duration_seconds: 4.0
+              max_train_samples: 8192
+              max_eval_samples: 8192
+              max_test_samples: null
 
             training:
               batch_size: 8
@@ -36,6 +41,13 @@ def test_config_loads(tmp_path: Path) -> None:
     assert config.model.name == "model_name"
     assert config.data.sample_rate == 16_000
     assert config.training.batch_size == 8
+    assert config.training.learning_rate == 0.0001
+    assert config.training.epochs == 5
+    assert config.model.layer_strategy == "last"
+    assert config.model.pooling_strategy == "asp"
+    assert config.data.max_train_samples == 8192
+    assert config.data.max_eval_samples == 8192
+    assert config.data.max_test_samples is None
 
 
 def test_invalid_training_value_fails(tmp_path: Path) -> None:
