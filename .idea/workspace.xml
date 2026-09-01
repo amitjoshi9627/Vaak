@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/config/base.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/base.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp02_last_asp.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp02_last_asp.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp03_last_mean.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp03_last_mean.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp04_weighted_sum_asp.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp04_weighted_sum_asp.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/config/experiments/exp05_weighted_sum_mean.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/experiments/exp05_weighted_sum_mean.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_config.py" afterDir="false" />
-    </list>
+    <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

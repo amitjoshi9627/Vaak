@@ -837,61 +837,112 @@ rather than relying on manually recorded metrics.
 
 Vaak is intentionally developed in stages.
 
-## Phase 1 — Foundation
+## 🗺️ Vaak Roadmap
 
-* [x] **V0.1.0** — Python project foundation
-* [x] **V0.1.x** — Configuration and development tooling
-* [x] **V0.1.x** — Audio loading, preprocessing and chunking
+### **Phase 1 — Foundation & Data Pipeline**
+
+* [x] **V0.1** — Project foundation, `uv`, Ruff, mypy, pytest, Makefile, configuration
+* [x] **V0.1.x** — Audio loading, mono conversion, resampling, normalization and 4s/2s chunking
 * [x] **V0.1.x** — Canonical manifest and dataset abstractions
 * [x] **V0.1.x** — ASVspoof 2019 LA integration
-* [x] **V0.1.x** — Training and validation pipeline
-* [x] **V0.1.x** — WavLM-Base baseline
-* [x] **V0.1.x** — MLflow experiment tracking
+* [x] **V0.1.x** — Training / validation / utterance-level evaluation pipeline
 
-## Phase 2 — Controlled Representation Research
+### **Phase 2 — Baseline & Experiment Infrastructure**
 
-* [ ] **V0.2** — Complete the 2×2 WavLM ablation study
-* [ ] **V0.2.x** — Layer and pooling error analysis
-* [ ] **V0.2.x** — Better experiment reproducibility and regression checks
+* [x] **V0.2** — Initial WavLM-Base baseline and training pipeline
+* [x] **V0.3** — MLflow experiment tracking, metrics and visualization
+* [x] **V0.4** — Config-driven model architecture flexibility and controlled ablations
+* [ ] **V0.4.x** — Complete the controlled 2×2 WavLM study
 
-## Phase 3 — Stronger Modeling
+  * Last layer + Mean
+  * Last layer + ASP
+  * Weighted layer aggregation + Mean
+  * Weighted layer aggregation + ASP
+* [ ] **V0.4.x** — Attack-level error analysis and experiment comparison
+* [ ] **V0.4.x** — Lock the strongest frozen-WavLM baseline
 
-* [ ] **V0.3** — Temporal backends
-* [ ] **V0.3.x** — Fine-tuning experiments
-* [ ] **V0.3.x** — LoRA / parameter-efficient adaptation
-* [ ] **V0.4** — WavLM-Base vs WavLM-Large
+### **Phase 3 — Model Improvement**
 
-## Phase 4 — Anti-Spoofing Research
+* [ ] **V0.5** — Representation improvements
 
-* [ ] **V0.5** — AASIST / RawNet-style baselines
-* [ ] **V0.5.x** — Newer anti-spoofing architectures
-* [ ] **V0.5.x** — Model comparison under identical evaluation
+  * Layer aggregation analysis
+  * Pooling analysis
+  * Temporal backends
+  * Projection / bottleneck experiments
+* [ ] **V0.5.x** — Loss-function experiments
 
-## Phase 5 — Robustness & Generalization
+  * Cross-entropy variants
+  * Focal / class-weighted objectives
+  * Metric-learning objectives
+* [ ] **V0.6** — WavLM adaptation
 
-* [ ] **V0.6** — Codec and acoustic degradation
-* [ ] **V0.6.x** — Noise, reverberation and telephony conditions
-* [ ] **V0.7** — Cross-corpus evaluation
-* [ ] **V0.7.x** — Unseen-generator evaluation
+  * LoRA
+  * Partial fine-tuning
+  * Full fine-tuning
+* [ ] **V0.6.x** — WavLM-Base vs WavLM-Large
 
-## Phase 6 — Product
+### **Phase 4 — Dedicated Anti-Spoofing Research**
 
-* [ ] **V0.8** — Shared inference service
-* [ ] **V0.8.x** — FastAPI
-* [ ] **V0.8.x** — Audio upload and microphone recording
-* [ ] **V0.9** — Temporal deepfake localization
-* [ ] **V0.9.x** — Confidence calibration and forensic visualization
+* [ ] **V0.7** — Dedicated anti-spoofing baselines
 
-## V1.0 — Production Vaak
+  * RawNet2
+  * AASIST
+  * Newer AASIST variants
+* [ ] **V0.7.x** — Controlled comparison against WavLM-based systems
+* [ ] **V0.7.x** — Model fusion experiments
 
+### **Phase 5 — Robustness & Generalization**
+
+* [ ] **V0.8** — Acoustic robustness
+
+  * Codec compression
+  * Noise
+  * Reverberation / RIR
+  * Telephony/channel degradation
+  * Resampling and spectral degradation
+* [ ] **V0.8.x** — Cross-corpus evaluation
+* [ ] **V0.8.x** — Unseen-generator evaluation
+* [ ] **V0.8.x** — Robustness and generalization benchmark
+
+### **Phase 6 — Product & Forensics**
+
+* [x] **V0.2.0** — Initial frontend foundation
+* [ ] **V0.9** — Shared inference pipeline + FastAPI
+* [ ] **V0.9.x** — Upload and microphone recording
+* [ ] **V0.9.x** — Latency / throughput measurement
+* [ ] **V0.9.x** — Temporal deepfake localization
+
+  * Frame-level spoof scores
+  * Suspicious-region extraction
+  * Timestamp visualization
+* [ ] **V0.9.x** — Confidence calibration
+
+### **V1.0 — Production Vaak**
+
+* [ ] Production inference architecture
 * [ ] Dockerized deployment
-* [ ] Production model/version management
-* [ ] Background inference where required
-* [ ] Privacy and retention controls
+* [ ] Redis / Celery where asynchronous processing is justified
+* [ ] Model/version promotion
 * [ ] Monitoring and observability
-* [ ] Deployment documentation
-* [ ] Stable inference API
+* [ ] Audio retention and deletion controls
+* [ ] Privacy and security policies
+* [ ] Production deployment documentation
 
+### **North Star**
+
+```text
+Reliable detection
+      ↓
+Unseen-generator generalization
+      ↓
+Real-world robustness
+      ↓
+Calibrated confidence
+      ↓
+"Why/where does Vaak notice it?"
+      ↓
+Production forensic product
+```
 ---
 
 # 🔭 Long-Term Vision
