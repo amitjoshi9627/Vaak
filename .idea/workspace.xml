@@ -5,9 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e539e860-5977-4efa-a092-0bec2a340b33" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/scripts/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/train.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/config/constants.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/public/sample.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/assets/sample.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/ErrorState.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/EvidenceRail.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/InputState.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/ListenSection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/ProcessingState.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/ReadyState.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/RecordingState.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/ResultState.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/VerdictPanel.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/analysis/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/layout/SiteFooter.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/layout/SiteHeader.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/layout/Topbar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/sections/EvaluationSection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/sections/EvidenceSection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/sections/IntroAcousticGraphic.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/sections/IntroSection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/sections/MethodSection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/sections/PrinciplesSection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/ui/AudioTexture.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/ui/Icon.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/components/ui/ListeningMark.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/constants/thresholds.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/hooks/useAudioAnalysis.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/hooks/useDropZone.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/styles/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/types/prediction.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vaak/frontend/src/utils/scroll.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vaak/api/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/api/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vaak/models/encoders/wavlm.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/models/encoders/wavlm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/config/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/config/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/frontend/public/favicon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/frontend/public/favicon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/frontend/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/frontend/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/frontend/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/frontend/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vaak/inference/predictor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/vaak/inference/predictor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

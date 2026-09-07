@@ -9,12 +9,18 @@ CONFIG ?= src/vaak/config/base.yaml
 MLFLOW_DB ?= sqlite:///mlruns/mlflow.db
 MLFLOW_PORT ?= 5000
 API_PORT ?= 8000
+FRONTEND_DIR ?= src/vaak/frontend
+FRONTEND_PORT ?= 5173
 
 .PHONY: help
 help:
 	@echo "Vaak development commands:"
 	@echo ""
-	@echo "  make install         Install dependencies"
+	@echo "  make dev             Start API + frontend (full-stack dev mode)"
+	@echo "  make serve           Start FastAPI inference server only"
+	@echo "  make frontend        Start Vite frontend only"
+	@echo ""
+	@echo "  make install         Install Python + frontend dependencies"
 	@echo "  make test            Run tests"
 	@echo "  make test-cov        Run tests with coverage"
 	@echo "  make lint            Run Ruff linting"
@@ -49,6 +55,25 @@ bump-major:
 .PHONY: install
 install:
 	uv sync
+	npm --prefix $(FRONTEND_DIR) install
+
+# ── Dev Servers ────────────────────────────────────────────────────────────────
+
+.PHONY: dev
+dev:
+	@echo "Starting Vaak (API: :$(API_PORT)  Frontend: :$(FRONTEND_PORT))"
+	@trap 'kill 0' EXIT; \
+		$(UVICORN) vaak.api.server:app --reload --port $(API_PORT) & \
+		npm --prefix $(FRONTEND_DIR) run dev -- --port $(FRONTEND_PORT); \
+		wait
+
+.PHONY: frontend
+frontend:
+	npm --prefix $(FRONTEND_DIR) run dev -- --port $(FRONTEND_PORT)
+
+.PHONY: backend
+backend:
+	$(UVICORN) vaak.api.server:app --reload --port $(API_PORT)
 
 .PHONY: test
 test:
@@ -97,7 +122,8 @@ prepare-asvspoof:
 
 .PHONY: train
 train:
-	$(PYTHON) scripts/train.py --config $(CONFIG)
+	@echo "Running training in offline mode..."
+	HF_HUB_OFFLINE=1 $(PYTHON) scripts/train.py --config $(CONFIG)
 
 .PHONY: mlflow-ui
 mlflow-ui:

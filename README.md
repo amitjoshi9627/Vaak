@@ -6,6 +6,7 @@
 
 **Research-first synthetic speech & voice deepfake detection**
 
+[![Version](https://img.shields.io/badge/version-0.5.0-orange.svg)](CHANGELOG.md)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-MPS%20%7C%20CUDA%20%7C%20CPU-ee4c2c.svg)](https://pytorch.org/)
 [![MLflow](https://img.shields.io/badge/MLflow-Experiment%20Tracking-0194E2.svg)](https://mlflow.org/)
@@ -747,6 +748,52 @@ make typecheck
 
 ---
 
+## 4. Run the Application (Full Stack, Frontend, or Backend)
+
+Vaak provides an interactive forensic listening console powered by a React + Vite frontend and a FastAPI backend inference engine.
+
+### 🌐 Full-Stack Development (Recommended)
+
+To start both the API inference server (`:8000`) and the Vite frontend (`:5173`) concurrently:
+
+```bash
+make dev
+```
+
+Once running, navigate to:
+* **Forensic Listening Console**: `http://localhost:5173`
+* **Interactive API Documentation (Swagger)**: `http://localhost:8000/docs`
+
+### 🖥️ Run Frontend Only
+
+If you only want to work on or preview the UI:
+
+```bash
+make frontend
+```
+*(Or `npm --prefix src/vaak/frontend run dev`)*
+
+### ⚙️ Run Backend Inference Server Only
+
+To run the FastAPI server standalone:
+
+```bash
+make backend
+```
+*(Or `uv run uvicorn vaak.api.server:app --reload --port 8000`)*
+
+### 🔄 Updating & Synchronizing Dependencies
+
+Whenever repository dependencies are updated or after pulling changes from git:
+
+```bash
+make install
+```
+
+This single command synchronizes Python virtualenv packages using `uv sync` and updates frontend packages using `npm install`.
+
+---
+
 # 🏋️ Train
 
 Experiments are defined through YAML.
@@ -835,7 +882,7 @@ rather than relying on manually recorded metrics.
 
 # 🧭 Roadmap
 
-Vaak is intentionally developed in stages.
+Vaak is developed in disciplined, sequential phases. Each version represents a milestone in research, modeling, or forensic product capability.
 
 ## 🗺️ Vaak Roadmap
 
@@ -851,82 +898,63 @@ Vaak is intentionally developed in stages.
 
 * [x] **V0.2** — Initial WavLM-Base baseline and training pipeline
 * [x] **V0.3** — MLflow experiment tracking, metrics and visualization
-* [x] **V0.4** — Config-driven model architecture flexibility and controlled ablations
-* [ ] **V0.4.x** — Complete the controlled 2×2 WavLM study
-
+* [x] **V0.4** — Config-driven model architecture flexibility and modular factory
+* [x] **V0.4.x** — Controlled WavLM ablations (pooling strategies & layer representations)
   * Last layer + Mean
   * Last layer + ASP
   * Weighted layer aggregation + Mean
   * Weighted layer aggregation + ASP
-* [ ] **V0.4.x** — Attack-level error analysis and experiment comparison
-* [ ] **V0.4.x** — Lock the strongest frozen-WavLM baseline
+* [x] **V0.4.x** — Attack-level error analysis and experiment comparison
 
-### **Phase 3 — Model Improvement**
+### **Phase 3 — Forensic Listening Console & Product Experience (Current Release)**
 
-* [ ] **V0.5** — Representation improvements
+* [x] **V0.5.0** — Forensic listening console, temporal localization, audio ingestion pipeline, FastAPI integration
+  * Interactive Forensic Listening Suite (`ListenSection`) with live waveform analysis
+  * Microphone recording studio with circular reactive frequency orbit
+  * Temporal chunk-level spoof localization and acoustic evidence deck
+  * Interactive DET curve & score distribution reliability visualizer
+  * Privacy-by-design memory-only processing pipeline with zero audio retention
+  * 4-column balanced architectural footer grid and unified design system
+  * Full-stack developer tooling (`make dev`, `make frontend`, `make serve`, `make install`)
 
-  * Layer aggregation analysis
-  * Pooling analysis
-  * Temporal backends
+### **Phase 4 — Model Improvements & Representation Research**
+
+* [ ] **V0.6** — Representation improvements & WavLM adaptation
+  * Systematic layer aggregation & temporal backends
   * Projection / bottleneck experiments
-* [ ] **V0.5.x** — Loss-function experiments
+  * Loss-function experiments (focal loss, class-weighted, metric learning)
+  * Parameter-efficient fine-tuning (LoRA / partial adaptation)
+* [ ] **V0.6.x** — WavLM-Base vs WavLM-Large scaling study
 
-  * Cross-entropy variants
-  * Focal / class-weighted objectives
-  * Metric-learning objectives
-* [ ] **V0.6** — WavLM adaptation
-
-  * LoRA
-  * Partial fine-tuning
-  * Full fine-tuning
-* [ ] **V0.6.x** — WavLM-Base vs WavLM-Large
-
-### **Phase 4 — Dedicated Anti-Spoofing Research**
+### **Phase 5 — Dedicated Anti-Spoofing Baselines & Fusion**
 
 * [ ] **V0.7** — Dedicated anti-spoofing baselines
-
   * RawNet2
-  * AASIST
-  * Newer AASIST variants
+  * AASIST and recent AASIST variants
 * [ ] **V0.7.x** — Controlled comparison against WavLM-based systems
 * [ ] **V0.7.x** — Model fusion experiments
 
-### **Phase 5 — Robustness & Generalization**
+### **Phase 6 — Robustness & Generalization**
 
 * [ ] **V0.8** — Acoustic robustness
-
-  * Codec compression
-  * Noise
-  * Reverberation / RIR
-  * Telephony/channel degradation
+  * Codec compression (MP3, AAC, Opus)
+  * Background noise & acoustic reverberation (RIR)
+  * Telephony / channel degradation
   * Resampling and spectral degradation
-* [ ] **V0.8.x** — Cross-corpus evaluation
-* [ ] **V0.8.x** — Unseen-generator evaluation
-* [ ] **V0.8.x** — Robustness and generalization benchmark
+* [ ] **V0.8.x** — Cross-corpus evaluation & unseen-generator benchmarks
 
-### **Phase 6 — Product & Forensics**
+### **Phase 7 — Production Forensics & Scale**
 
-* [x] **V0.2.0** — Initial frontend foundation
-* [ ] **V0.9** — Shared inference pipeline + FastAPI
-* [ ] **V0.9.x** — Upload and microphone recording
-* [ ] **V0.9.x** — Latency / throughput measurement
-* [ ] **V0.9.x** — Temporal deepfake localization
-
-  * Frame-level spoof scores
-  * Suspicious-region extraction
-  * Timestamp visualization
-* [ ] **V0.9.x** — Confidence calibration
-
-### **V1.0 — Production Vaak**
-
-* [ ] Production inference architecture
-* [ ] Dockerized deployment
-* [ ] Redis / Celery where asynchronous processing is justified
-* [ ] Model/version promotion
-* [ ] Monitoring and observability
-* [ ] Audio retention and deletion controls
-* [ ] Privacy and security policies
-* [ ] Production deployment documentation
+* [ ] **V0.9** — Production inference optimization & asynchronous queuing
+* [ ] **V0.9.x** — Latency / throughput benchmarks under load
+* [ ] **V0.9.x** — Multi-codec robustness and confidence calibration in production
+* [ ] **V0.9.x** — Forensic report export (PDF / JSON forensic dossier)
+* [ ] **V1.0** — Production Vaak
+  * Production inference architecture & dockerized deployment
+  * Model & checkpoint version promotion
+  * Monitoring, observability, and audit logging
+  * Audio retention and deletion controls with strict privacy guarantees
+  * Production deployment documentation
 
 ### **North Star**
 
