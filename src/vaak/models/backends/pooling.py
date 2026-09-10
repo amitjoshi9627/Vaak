@@ -17,7 +17,7 @@ class AttentiveStatisticsPooling(nn.Module):
         super().__init__()
         self.attention = nn.Sequential(
             nn.Linear(input_dim, attention_dim),
-            nn.Tanh(),
+            nn.GELU(),
             nn.Linear(attention_dim, 1),
         )
 

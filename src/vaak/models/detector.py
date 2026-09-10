@@ -13,10 +13,12 @@ class VaakDetector(nn.Module):
         backend: nn.Module,
         head: nn.Module,
         aggregator: nn.Module | None = None,
+        projector: nn.Module | None = None,
     ) -> None:
         super().__init__()
         self.encoder = encoder
         self.aggregator = aggregator
+        self.projector = projector
         self.backend = backend
         self.head = head
 
@@ -25,6 +27,9 @@ class VaakDetector(nn.Module):
 
         if self.aggregator is not None:
             features = self.aggregator(features)
+
+        if self.projector is not None:
+            features = self.projector(features)
 
         pooled = self.backend(features)
         logits = self.head(pooled)
