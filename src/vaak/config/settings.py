@@ -26,6 +26,9 @@ class ModelConfig(BaseModel):
     pretrained_model_name: str
     layer_strategy: LayerStrategy = LayerStrategy.LAST
     pooling_strategy: PoolingStrategy = PoolingStrategy.MEAN
+    projection_dim: int | None = Field(
+        default=None, gt=0, description="Optional bottleneck dimension"
+    )
 
 
 class DataConfig(BaseModel):

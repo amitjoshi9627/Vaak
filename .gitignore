@@ -41,6 +41,8 @@ logs/
 *.ckpt
 *.safetensors
 
+.cache
+
 # Secrets
 .env
 .env.*
