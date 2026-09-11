@@ -9,13 +9,14 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 
 from vaak.audio.pipeline import AudioPipeline, AudioPipelineConfig
-from vaak.config.settings import load_config
+from vaak.config.settings import LossStrategy, load_config
 from vaak.core.logging import configure_logging, get_logger
 from vaak.data import EvaluationDataset, TrainingDataset
 from vaak.data.dataset import vaak_collate_fn
 from vaak.data.manifest import load_manifest
 from vaak.evaluation.evaluator import Evaluator
 from vaak.models.factory import build_model_from_config
+from vaak.training.losses import MultiClassFocalLoss
 from vaak.training.trainer import Trainer
 from vaak.utils.tools import get_optimal_device, set_seed
 from vaak.utils.tracker import MLflowTracker
@@ -146,7 +147,16 @@ def main() -> None:
         lr=config.training.learning_rate,
         weight_decay=config.training.weight_decay,
     )
-    criterion = nn.CrossEntropyLoss()
+    if config.training.loss_strategy == LossStrategy.FOCAL:
+        logger.info("Using Multi-Class Focal Loss.")
+
+        # Bona Fide (Label 0) is rare. Spoof (Label 1) is common.
+        alpha_weights = torch.tensor([0.9, 0.1], device=device)
+
+        criterion = MultiClassFocalLoss(alpha=alpha_weights, gamma=2.0)
+    else:
+        logger.info("Using standard Cross-Entropy Loss.")
+        criterion = nn.CrossEntropyLoss()
 
     checkpoint_dir = project_root / "checkpoints" / config.experiment_name / run_id
 
