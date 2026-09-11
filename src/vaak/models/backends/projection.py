@@ -1,3 +1,5 @@
+from typing import cast
+
 import torch
 import torch.nn as nn
 
@@ -19,4 +21,4 @@ class FrameProjection(nn.Module):
         Returns:
             Projected tensor of shape [B, T, output_dim]
         """
-        return self.drop(self.act(self.norm(self.proj(x))))
+        return cast(torch.Tensor, self.drop(self.act(self.norm(self.proj(x)))))
