@@ -15,6 +15,7 @@ from vaak.config.settings import load_config
 from vaak.core.logging import get_logger
 from vaak.inference.predictor import VaakPredictor
 from vaak.models.backends.pooling import MeanPooling
+from vaak.models.backends.temporal import TemporalCNN
 from vaak.models.detector import VaakDetector
 from vaak.models.encoders.wavlm import WavLMEncoder
 from vaak.models.factory import build_model_from_config
@@ -56,10 +57,12 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
             f"Failed to load champion model ({e})! Falling back to untrained baseline."
         )
 
+        encoder = WavLMEncoder(freeze=True)
         model = VaakDetector(
-            encoder=WavLMEncoder(freeze=True),
-            backend=MeanPooling(),
-            head=BinaryLinearHead(input_dim=768),
+            encoder=encoder,
+            pooler=MeanPooling(),
+            temporal=TemporalCNN(encoder.output_dim),
+            head=BinaryLinearHead(input_dim=encoder.output_dim),
         )
 
     pipeline = AudioPipeline(config=AudioPipelineConfig())

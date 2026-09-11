@@ -24,12 +24,21 @@ class DummyEncoder(nn.Module):
         return out.transpose(1, 2)
 
 
+class DummyTemporal(nn.Module):
+    """Pass-through temporal module for testing."""
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return x
+
+
 def test_trainer_fit_loop(tmp_path: Path) -> None:
     device = torch.device("cpu")
     encoder = DummyEncoder(hidden_dim=32)
-    backend = MeanPooling()
+    temporal = DummyTemporal()
+    pooler = MeanPooling()
     head = BinaryLinearHead(input_dim=32)
-    model = VaakDetector(encoder=encoder, backend=backend, head=head)
+
+    model = VaakDetector(encoder=encoder, temporal=temporal, pooler=pooler, head=head)
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
     criterion = nn.CrossEntropyLoss()

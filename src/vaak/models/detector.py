@@ -10,7 +10,8 @@ class VaakDetector(nn.Module):
     def __init__(
         self,
         encoder: nn.Module,
-        backend: nn.Module,
+        temporal: nn.Module,
+        pooler: nn.Module,
         head: nn.Module,
         aggregator: nn.Module | None = None,
         projector: nn.Module | None = None,
@@ -19,7 +20,8 @@ class VaakDetector(nn.Module):
         self.encoder = encoder
         self.aggregator = aggregator
         self.projector = projector
-        self.backend = backend
+        self.temporal = temporal
+        self.pooler = pooler
         self.head = head
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -31,6 +33,9 @@ class VaakDetector(nn.Module):
         if self.projector is not None:
             features = self.projector(features)
 
-        pooled = self.backend(features)
+        features = self.temporal(features)
+
+        pooled = self.pooler(features)
+
         logits = self.head(pooled)
         return cast(torch.Tensor, logits)

@@ -17,7 +17,13 @@ class DummyAggregator(nn.Module):
         return x.mean(dim=0)
 
 
-class DummyBackend(nn.Module):
+class DummyTemporal(nn.Module):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # Simulates sequence modeling (CNN/Conformer): [B, T, D] -> [B, T, D]
+        return x
+
+
+class DummyPooler(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Simulates ASP pooling: [B, T, D] -> [B, 1536]
         batch_size = x.size(0)
@@ -39,7 +45,8 @@ def test_vaak_detector_forward_pass() -> None:
     detector = VaakDetector(
         encoder=DummyEncoder(),
         aggregator=DummyAggregator(),
-        backend=DummyBackend(),
+        temporal=DummyTemporal(),
+        pooler=DummyPooler(),
         head=DummyHead(),
     )
 

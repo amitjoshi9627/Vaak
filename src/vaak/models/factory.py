@@ -4,6 +4,7 @@ from vaak.config.settings import LayerStrategy, PoolingStrategy, VaakConfig
 from vaak.models.backends.aggregation import WeightedLayerAggregation
 from vaak.models.backends.pooling import AttentiveStatisticsPooling, MeanPooling
 from vaak.models.backends.projection import FrameProjection
+from vaak.models.backends.temporal import TemporalCNN
 from vaak.models.detector import VaakDetector
 from vaak.models.encoders.wavlm import WavLMEncoder
 from vaak.models.heads.binary import BinaryLinearHead
@@ -30,23 +31,26 @@ def build_model_from_config(config: VaakConfig) -> VaakDetector:
         else None
     )
 
-    # Calculate dimension transitioning into the backend
-    backend_input_dim = encoder.output_dim
+    # Calculate dimension coming out of encoder
+    feature_dim = encoder.output_dim
     projector = None
 
     if proj_dim is not None:
         projector = FrameProjection(input_dim=encoder.output_dim, output_dim=proj_dim)
-        backend_input_dim = proj_dim
+        feature_dim = proj_dim
 
-    # Instantiate pooling with the correct incoming dimension
+    # Temporal layer
+    temporal = TemporalCNN(channels=feature_dim)
+
+    # Instantiate pooler with the correct incoming dimension
     if pooling_type == PoolingStrategy.ASP:
-        backend: nn.Module = AttentiveStatisticsPooling(
-            input_dim=backend_input_dim, attention_dim=128
+        pooler: nn.Module = AttentiveStatisticsPooling(
+            input_dim=feature_dim, attention_dim=128
         )
-        head_dim = backend_input_dim * 2
+        head_dim = feature_dim * 2
     else:
-        backend = MeanPooling()
-        head_dim = backend_input_dim
+        pooler = MeanPooling()
+        head_dim = feature_dim
 
     head = BinaryLinearHead(input_dim=head_dim)
 
@@ -54,6 +58,7 @@ def build_model_from_config(config: VaakConfig) -> VaakDetector:
         encoder=encoder,
         aggregator=aggregator,
         projector=projector,
-        backend=backend,
+        temporal=temporal,
+        pooler=pooler,
         head=head,
     )
