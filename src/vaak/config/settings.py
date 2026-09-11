@@ -7,6 +7,11 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from vaak.core.exceptions import ConfigurationError
 
 
+class LossStrategy(StrEnum):
+    CROSS_ENTROPY = "cross_entropy"
+    FOCAL = "focal"
+
+
 class LayerStrategy(StrEnum):
     LAST = "last"
     WEIGHTED_SUM = "weighted_sum"
@@ -55,6 +60,7 @@ class TrainingConfig(BaseModel):
     learning_rate: float = Field(default=1e-4, gt=0)
     epochs: int = Field(default=5, gt=0)
     weight_decay: float = Field(default=1e-2, gt=0)
+    loss_strategy: LossStrategy = LossStrategy.CROSS_ENTROPY
 
 
 class VaakConfig(BaseModel):
