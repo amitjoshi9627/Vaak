@@ -142,8 +142,10 @@ def main() -> None:
 
     model = build_model_from_config(config).to(device)
 
+    trainable_params = [p for p in model.parameters() if p.requires_grad]
+
     optimizer = torch.optim.AdamW(
-        model.parameters(),
+        trainable_params,
         lr=config.training.learning_rate,
         weight_decay=config.training.weight_decay,
     )

@@ -1,6 +1,6 @@
 [project]
 name = "vaak"
-version = "0.6.2"
+version = "0.6.3"
 description = "Vaak — an ear that's trained to notice."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -13,6 +13,7 @@ dependencies = [
     "fastapi>=0.141.1",
     "mlflow>=3.15.0",
     "pandas<3.0.0",
+    "peft>=0.21.0",
     "pydantic>=2.11",
     "pytest>=9.1.1",
     "python-multipart>=0.0.32",
