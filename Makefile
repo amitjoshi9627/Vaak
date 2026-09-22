@@ -85,13 +85,11 @@ test-cov:
 
 .PHONY: format
 format:
-	$(RUFF) check . --fix
-	$(RUFF) format .
+	uv run pre-commit run --all-files
 
 .PHONY: format-check
 format-check:
-	$(RUFF) check .
-	$(RUFF) format --check .
+	uv run pre-commit run --all-files
 
 .PHONY: typecheck
 typecheck:
@@ -99,8 +97,7 @@ typecheck:
 
 .PHONY: check
 check:
-	$(RUFF) check .
-	$(RUFF) format --check .
+	uv run pre-commit run --all-files
 	$(MYPY) src tests
 	$(PYTEST)
 

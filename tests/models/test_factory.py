@@ -47,7 +47,10 @@ def test_factory_builds_baseline(
     assert model.aggregator is None
     assert isinstance(model.pooler, MeanPooling)
     mock_encoder_class.assert_called_once_with(
-        pretrained_name="dummy_pretrained", freeze=True, extract_all_layers=False
+        pretrained_name="dummy_pretrained",
+        extract_all_layers=False,
+        lora_r=8,
+        lora_alpha=16,
     )
 
 
@@ -70,5 +73,8 @@ def test_factory_builds_complex_architecture(
     assert isinstance(model.aggregator, WeightedLayerAggregation)
     assert isinstance(model.pooler, AttentiveStatisticsPooling)
     mock_encoder_class.assert_called_once_with(
-        pretrained_name="dummy_pretrained", freeze=True, extract_all_layers=True
+        pretrained_name="dummy_pretrained",
+        extract_all_layers=True,
+        lora_r=8,
+        lora_alpha=16,
     )

@@ -57,7 +57,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
             f"Failed to load champion model ({e})! Falling back to untrained baseline."
         )
 
-        encoder = WavLMEncoder(freeze=True)
+        encoder = WavLMEncoder()
         model = VaakDetector(
             encoder=encoder,
             pooler=MeanPooling(),

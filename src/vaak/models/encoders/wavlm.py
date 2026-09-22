@@ -59,9 +59,9 @@ class WavLMEncoder(nn.Module):
     @property
     def output_dim(self) -> int:
         """Feature dimension produced by WavLM."""
-        return self.model.config.hidden_size
+        return int(self.model.config.hidden_size)
 
     @property
     def num_hidden_states(self) -> int:
         """Number of hidden states exposed by the encoder."""
-        return self.model.config.num_hidden_layers + 1
+        return int(self.model.config.num_hidden_layers) + 1

@@ -37,6 +37,14 @@ class DummyHead(nn.Module):
         return torch.zeros(batch_size, 2)
 
 
+class DummyProjector(nn.Module):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # Simulates frame projection: [B, T, 768] -> [B, T, 256]
+        batch_size = x.size(0)
+        time_steps = x.size(1)
+        return torch.randn(batch_size, time_steps, 256)
+
+
 def test_vaak_detector_forward_pass() -> None:
     batch_size = 4
     # Dummy raw audio input [B, L]
@@ -45,6 +53,7 @@ def test_vaak_detector_forward_pass() -> None:
     detector = VaakDetector(
         encoder=DummyEncoder(),
         aggregator=DummyAggregator(),
+        projector=DummyProjector(),
         temporal=DummyTemporal(),
         pooler=DummyPooler(),
         head=DummyHead(),

@@ -399,8 +399,8 @@ export function RecordingState({ recordTime, stopRecording, cancelRecording, str
 
         {/* Action Controls */}
         <div className="rec-button-stack">
-          <button 
-            className="rec-stop-button" 
+          <button
+            className="rec-stop-button"
             onClick={stopRecording}
             id="stop-recording-btn"
           >
@@ -410,8 +410,8 @@ export function RecordingState({ recordTime, stopRecording, cancelRecording, str
           </button>
 
           {cancelRecording && (
-            <button 
-              className="rec-cancel-button" 
+            <button
+              className="rec-cancel-button"
               onClick={cancelRecording}
               id="cancel-recording-btn"
             >

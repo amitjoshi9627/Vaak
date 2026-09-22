@@ -8,7 +8,7 @@
   <!-- Dark squircle base matching Vaak signature deep ink palette -->
   <rect width="64" height="64" rx="15" fill="url(#tile-grad)" />
   <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="14.25" fill="none" stroke="rgba(244, 241, 232, 0.12)" stroke-width="1.5" />
-  
+
   <!-- Subtle acoustic listening arcs in signature forensic orange tint -->
   <path d="M 43 20 A 17 17 0 0 1 43 44" fill="none" stroke="rgba(230, 95, 53, 0.35)" stroke-width="2.2" stroke-linecap="round" />
   <path d="M 49 15 A 24 24 0 0 1 49 49" fill="none" stroke="rgba(230, 95, 53, 0.2)" stroke-width="2.2" stroke-linecap="round" />

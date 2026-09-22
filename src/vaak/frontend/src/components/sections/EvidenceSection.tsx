@@ -68,14 +68,14 @@ export function EvidenceSection() {
         <div className="specimen-deck-header">
           <div className="specimen-selector">
             <span className="specimen-label">AUDIO INSPECTOR:</span>
-            <button 
+            <button
               className={`specimen-toggle ${activeSpecimen === 'synthetic' ? 'active' : ''}`}
               onClick={() => setActiveSpecimen('synthetic')}
             >
               <i className="status-dot alert" />
               <span>Synthetic Voice (Neural TTS)</span>
             </button>
-            <button 
+            <button
               className={`specimen-toggle ${activeSpecimen === 'bonafide' ? 'active' : ''}`}
               onClick={() => setActiveSpecimen('bonafide')}
             >
@@ -111,7 +111,7 @@ export function EvidenceSection() {
                 const isHighRisk2 = i >= 30 && i <= 38;
                 const isModRisk = i >= 43 && i <= 51;
                 const isSyntheticAnomaly = activeSpecimen === 'synthetic' && (isHighRisk1 || isHighRisk2 || isModRisk);
-                
+
                 const baseHeight = 20 + Math.sin(i * 0.35) * 15 + Math.cos(i * 0.7) * 10;
                 const height = Math.max(12, Math.min(84, baseHeight + (isSyntheticAnomaly ? 18 : 0)));
 

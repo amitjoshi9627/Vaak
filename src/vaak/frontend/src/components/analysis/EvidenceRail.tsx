@@ -31,7 +31,7 @@ export function EvidenceRail({ result, status }: EvidenceRailProps) {
   }, [status]);
 
   const numChunks = result ? result.chunks.length : 60; // default 60 empty slots
-  
+
   // Generate dummy waveform data for visual effect (deterministic based on index)
   const getWaveHeight = (i: number) => {
     if (!result && status !== 'scanning') return 2; // flatline
@@ -41,7 +41,7 @@ export function EvidenceRail({ result, status }: EvidenceRailProps) {
 
   return (
     <div style={{ padding: 'var(--space-6)', flex: 1, display: 'flex', flexDirection: 'column' }}>
-      
+
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 'var(--space-6)' }}>
         <div>
@@ -52,7 +52,7 @@ export function EvidenceRail({ result, status }: EvidenceRailProps) {
             Acoustic evidence rail
           </h2>
         </div>
-        
+
         {status === 'done' && result && (
           <div style={{ textAlign: 'right' }}>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--ink-secondary)' }}>MODEL CONFIDENCE</p>
@@ -64,16 +64,16 @@ export function EvidenceRail({ result, status }: EvidenceRailProps) {
       </div>
 
       {/* The Rail Container */}
-      <div 
-        style={{ 
-          border: '1px solid var(--grid-line-strong)', 
-          background: '#FFF', 
+      <div
+        style={{
+          border: '1px solid var(--grid-line-strong)',
+          background: '#FFF',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column'
         }}
       >
-        
+
         {/* Timeline Axis */}
         <div style={{ display: 'flex', borderBottom: '1px solid var(--grid-line)', padding: '4px 0', paddingLeft: 60 }}>
           {[0, 1, 2, 3, 4, 5].map(m => (
@@ -92,8 +92,8 @@ export function EvidenceRail({ result, status }: EvidenceRailProps) {
           </div>
           <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 2, padding: '0 4px' }}>
             {Array.from({ length: numChunks }).map((_, i) => (
-              <div 
-                key={`amp-${i}`} 
+              <div
+                key={`amp-${i}`}
                 style={{
                   flex: 1,
                   height: getWaveHeight(i) + '%',
@@ -116,10 +116,10 @@ export function EvidenceRail({ result, status }: EvidenceRailProps) {
               const chunk = result?.chunks[i];
               const prob = chunk?.probability ?? 0;
               const isHighRisk = prob > 0.5;
-              
+
               return (
-                <div 
-                  key={`lik-${i}`} 
+                <div
+                  key={`lik-${i}`}
                   style={{
                     flex: 1,
                     height: '60%',
@@ -135,7 +135,7 @@ export function EvidenceRail({ result, status }: EvidenceRailProps) {
 
         {/* Playhead Line */}
         {(status === 'scanning' || status === 'done') && (
-          <div 
+          <div
             style={{
               position: 'absolute',
               top: 0,

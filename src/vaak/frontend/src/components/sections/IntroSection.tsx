@@ -30,4 +30,3 @@ export function IntroSection({ scrollToDemo }: { scrollToDemo: () => void }) {
     </section>
   );
 }
-

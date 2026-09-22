@@ -2,26 +2,26 @@ import { Icon } from '../ui/Icon';
 
 export function EvaluationSection() {
   const coverageData = [
-    { 
-      name: 'Neural Vocoders & Resynthesis', 
+    {
+      name: 'Neural Vocoders & Resynthesis',
       models: 'BigVGAN · HiFi-GAN · WaveGlow',
       type: 'Vocoders',
       badgeClass: 'theme-vocoder'
     },
-    { 
-      name: 'Zero-Shot Voice Cloners', 
+    {
+      name: 'Zero-Shot Voice Cloners',
       models: 'ElevenLabs · Tortoise · XTTS v2',
       type: 'Cloning',
       badgeClass: 'theme-cloner'
     },
-    { 
-      name: 'Diffusion & Flow Matching', 
+    {
+      name: 'Diffusion & Flow Matching',
       models: 'StyleTTS 2 · Voicebox · F5-TTS',
       type: 'Diffusion',
       badgeClass: 'theme-diffusion'
     },
-    { 
-      name: 'Voice Conversion & Morphing', 
+    {
+      name: 'Voice Conversion & Morphing',
       models: 'RVC v2 · FreeVC · SoftVC',
       type: 'Conversion',
       badgeClass: 'theme-conversion'
