@@ -59,10 +59,10 @@ export function Topbar() {
       </div>
 
       {/* System status pill */}
-      <div 
-        style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
           gap: 12,
           padding: '4px 12px',
           border: '1px solid var(--grid-line-strong)',

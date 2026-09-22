@@ -320,19 +320,19 @@ export function ListenSection() {
 
         {state === "empty" && <InputState fileInputRef={fileInputRef} onFile={onFile} startRecording={startRecording} sampleDemo={sampleDemo} />}
         {state === "recording" && (
-          <RecordingState 
-            recordTime={recordTime} 
-            stopRecording={stopRecording} 
+          <RecordingState
+            recordTime={recordTime}
+            stopRecording={stopRecording}
             cancelRecording={cancelRecording}
-            stream={stream || streamRef.current} 
+            stream={stream || streamRef.current}
           />
         )}
         {state === "ready" && (
-          <ReadyState 
-            file={file} 
-            duration={duration} 
-            analyze={analyze} 
-            reset={reset} 
+          <ReadyState
+            file={file}
+            duration={duration}
+            analyze={analyze}
+            reset={reset}
             audioUrl={audioUrl}
             startRecording={startRecording}
             fileInputRef={fileInputRef}
@@ -340,23 +340,23 @@ export function ListenSection() {
         )}
         {state === "processing" && <ProcessingState processingStep={processingStep} />}
         {state === "result" && (
-          <ResultState 
-            duration={duration} 
-            evidence={evidence} 
+          <ResultState
+            duration={duration}
+            evidence={evidence}
             result={analysisState.status === 'done' ? analysisState.result : null}
-            audioRef={audioRef} 
+            audioRef={audioRef}
             audioUrl={audioUrl}
-            isPlaying={isPlaying} 
+            isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
-            playhead={playhead} 
+            playhead={playhead}
             setPlayhead={setPlayhead}
-            playRegion={playRegion} 
-            togglePlayback={togglePlayback} 
-            reset={reset} 
+            playRegion={playRegion}
+            togglePlayback={togglePlayback}
+            reset={reset}
           />
         )}
         {state === "error" && (
-          <ErrorState 
+          <ErrorState
             reset={reset}
             message={analysisState.status === 'error' ? analysisState.message : localErrorMessage || undefined}
             sampleDemo={sampleDemo}

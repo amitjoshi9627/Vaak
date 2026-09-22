@@ -115,10 +115,10 @@ export function SiteFooter() {
           </div>
 
           <div className="footer-meta-center">
-            <a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noreferrer" 
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noreferrer"
               className="footer-bottom-github-link"
               aria-label="GitHub Repository"
             >
@@ -140,5 +140,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-
-

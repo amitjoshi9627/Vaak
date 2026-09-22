@@ -2,8 +2,8 @@
 export function MethodSection() {
   const steps = [
     {
-      n: "01", 
-      title: "Prepare", 
+      n: "01",
+      title: "Prepare",
       copy: "Audio is validated, normalized, and resampled to a consistent signal.",
       visual: (
         <div className="method-vis method-vis-prepare">
@@ -14,8 +14,8 @@ export function MethodSection() {
       )
     },
     {
-      n: "02", 
-      title: "Divide", 
+      n: "02",
+      title: "Divide",
       copy: "Overlapping segments preserve where evidence appears in time.",
       visual: (
         <div className="method-vis method-vis-divide">
@@ -26,8 +26,8 @@ export function MethodSection() {
       )
     },
     {
-      n: "03", 
-      title: "Represent", 
+      n: "03",
+      title: "Represent",
       copy: "A speech model extracts representations from the audio itself.",
       visual: (
         <div className="method-vis method-vis-represent">
@@ -36,8 +36,8 @@ export function MethodSection() {
       )
     },
     {
-      n: "04", 
-      title: "Compare", 
+      n: "04",
+      title: "Compare",
       copy: "Each segment contributes evidence toward a human or synthetic classification.",
       visual: (
         <div className="method-vis method-vis-compare">
@@ -48,8 +48,8 @@ export function MethodSection() {
       )
     },
     {
-      n: "05", 
-      title: "Interpret", 
+      n: "05",
+      title: "Interpret",
       copy: "Evidence is aggregated with uncertainty, signal quality, and caveats.",
       visual: (
         <div className="method-vis method-vis-interpret">

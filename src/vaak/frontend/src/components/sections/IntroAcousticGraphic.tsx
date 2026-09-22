@@ -1,10 +1,10 @@
 export function IntroAcousticGraphic() {
   return (
     <div className="acoustic-signal-overlay" aria-hidden="true">
-      <svg 
-        className="acoustic-signal-svg" 
-        viewBox="0 0 800 600" 
-        fill="none" 
+      <svg
+        className="acoustic-signal-svg"
+        viewBox="0 0 800 600"
+        fill="none"
         preserveAspectRatio="none"
       >
         {/* Layer 3: Upper harmonic articulation contour (Warm Paper) */}

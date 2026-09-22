@@ -21,23 +21,23 @@ export function VerdictPanel({ result, status }: VerdictPanelProps) {
 
   const isSynthetic = result.verdict === 'SYNTHETIC';
   const stampColor = isSynthetic ? 'var(--forensic-red)' : 'var(--ink-primary)';
-  
+
   // Calculate mock log-likelihood based on confidence for display purposes
   const likelihood = isSynthetic ? (result.confidence / 5).toFixed(2) : ((100 - result.confidence) / -5).toFixed(2);
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1.5fr', padding: '0 var(--space-6)', borderTop: '1px solid var(--grid-line)' }}>
-      
+
       {/* 03 / GLOBAL VERDICT */}
       <div style={{ padding: 'var(--space-4)', borderRight: '1px solid var(--grid-line)', display: 'flex', flexDirection: 'column' }}>
         <p style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', color: 'var(--ink-secondary)', marginBottom: 'var(--space-4)' }}>
           03 / GLOBAL VERDICT
         </p>
-        
+
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {/* THE STAMP */}
-          <div 
-            style={{ 
+          <div
+            style={{
               border: `3px solid ${stampColor}`,
               padding: '8px 16px',
               animation: 'stamp-verdict 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both',
@@ -66,24 +66,24 @@ export function VerdictPanel({ result, status }: VerdictPanelProps) {
           <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 32, fontWeight: 400 }}>
             {Number(likelihood) > 0 ? '+' : ''}{likelihood}
           </h2>
-          
+
           {/* Gauge Line */}
           <div style={{ marginTop: 24, position: 'relative', height: 2, background: 'var(--grid-line-strong)', display: 'flex' }}>
             <div style={{ flex: 1, background: isSynthetic ? 'var(--grid-line-strong)' : 'var(--ink-primary)' }} />
             <div style={{ flex: 1, background: isSynthetic ? 'var(--forensic-red)' : 'var(--grid-line-strong)' }} />
-            
+
             {/* Indicator */}
-            <div 
-              style={{ 
-                position: 'absolute', 
-                top: -4, 
-                width: 4, 
-                height: 10, 
+            <div
+              style={{
+                position: 'absolute',
+                top: -4,
+                width: 4,
+                height: 10,
                 background: 'var(--ink-primary)',
                 left: isSynthetic ? '75%' : '25%',
                 transform: 'translateX(-50%)',
                 transition: 'left 0.5s ease-out'
-              }} 
+              }}
             />
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
@@ -101,7 +101,7 @@ export function VerdictPanel({ result, status }: VerdictPanelProps) {
           </p>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10 }}>3 / 7</span>
         </div>
-        
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 'var(--space-6)' }}>
           {[
             { label: 'Phase incoherence', val: 87, sub: '+4.8 sigma' },

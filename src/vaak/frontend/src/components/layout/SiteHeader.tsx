@@ -23,4 +23,3 @@ export function SiteHeader({ scrollToDemo }: { scrollToDemo: () => void }) {
     </header>
   );
 }
-
