@@ -2,30 +2,44 @@ from typing import cast
 
 import torch
 import torch.nn as nn
+from peft import LoraConfig, get_peft_model
 from transformers import WavLMModel
 
 
 class WavLMEncoder(nn.Module):
-    """WavLM foundation model with toggleable layer extraction."""
+    """WavLM foundation model with LoRA adaptation."""
 
     def __init__(
         self,
         pretrained_name: str = "microsoft/wavlm-base",
-        freeze: bool = True,
         extract_all_layers: bool = False,
+        lora_r: int = 8,
+        lora_alpha: int = 16,
+        lora_dropout: float = 0.1,
     ) -> None:
         super().__init__()
         self.extract_all_layers = extract_all_layers
 
-        self.model = WavLMModel.from_pretrained(
+        # Load the frozen base model
+        base_model = WavLMModel.from_pretrained(
             pretrained_name,
             output_hidden_states=extract_all_layers,
             layerdrop=0.0,
         )
 
-        if freeze:
-            for param in self.model.parameters():
-                param.requires_grad = False
+        # Configure Low-Rank Adapters (LoRA)
+        config = LoraConfig(
+            r=lora_r,
+            lora_alpha=lora_alpha,
+            target_modules=["q_proj", "v_proj"],
+            lora_dropout=lora_dropout,
+            bias="none",
+        )
+
+        # Wrap model to inject trainable matrices and freeze the rest
+        self.model = get_peft_model(base_model, config)
+
+        self.model.print_trainable_parameters()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Extract features.

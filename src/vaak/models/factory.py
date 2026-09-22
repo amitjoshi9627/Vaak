@@ -21,8 +21,9 @@ def build_model_from_config(config: VaakConfig) -> VaakDetector:
 
     encoder = WavLMEncoder(
         pretrained_name=config.model.pretrained_model_name,
-        freeze=True,
         extract_all_layers=extract_all,
+        lora_r=config.model.lora_r,
+        lora_alpha=config.model.lora_alpha,
     )
 
     aggregator = (

@@ -31,9 +31,9 @@ class ModelConfig(BaseModel):
     pretrained_model_name: str
     layer_strategy: LayerStrategy = LayerStrategy.LAST
     pooling_strategy: PoolingStrategy = PoolingStrategy.MEAN
-    projection_dim: int | None = Field(
-        default=None, gt=0, description="Optional bottleneck dimension"
-    )
+    projection_dim: int | None = Field(default=None, gt=0)
+    lora_r: int = Field(default=8, ge=1, description="Rank of the LoRA matrices")
+    lora_alpha: int = Field(default=16, ge=1, description="Scaling factor for LoRA")
 
 
 class DataConfig(BaseModel):
