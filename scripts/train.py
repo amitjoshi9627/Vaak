@@ -16,7 +16,7 @@ from vaak.data.dataset import vaak_collate_fn
 from vaak.data.manifest import load_manifest
 from vaak.evaluation.evaluator import Evaluator
 from vaak.models.factory import build_model_from_config
-from vaak.training.losses import MultiClassFocalLoss
+from vaak.training.losses import AMSoftmaxLoss, MultiClassFocalLoss
 from vaak.training.trainer import Trainer
 from vaak.utils.tools import get_optimal_device, set_seed
 from vaak.utils.tracker import MLflowTracker
@@ -156,6 +156,9 @@ def main() -> None:
         alpha_weights = torch.tensor([0.9, 0.1], device=device)
 
         criterion = MultiClassFocalLoss(alpha=alpha_weights, gamma=2.0)
+    elif config.training.loss_strategy == LossStrategy.AM_SOFTMAX:
+        logger.info("Using AM-Softmax Loss for spherical margin learning.")
+        criterion = AMSoftmaxLoss(margin=0.2, scale=30.0)
     else:
         logger.info("Using standard Cross-Entropy Loss.")
         criterion = nn.CrossEntropyLoss()
