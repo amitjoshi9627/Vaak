@@ -1,3 +1,5 @@
+from typing import cast
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -47,3 +49,29 @@ class MultiClassFocalLoss(nn.Module):
             return focal_loss.sum()
 
         return focal_loss
+
+
+class AMSoftmaxLoss(nn.Module):
+    """
+    Additive Margin Softmax Loss.
+    Forces intra-class compactness and inter-class separability.
+    Penalize correct prediction to improve the margin even further
+    """
+
+    def __init__(self, margin: float = 0.2, scale: float = 30.0) -> None:
+        super().__init__()
+        # Pre-scale the margin to match the scaled logits coming from the CosineHead
+        self.scaled_margin = margin * scale
+        self.ce = nn.CrossEntropyLoss()
+
+    def forward(
+        self, scaled_logits: torch.Tensor, targets: torch.Tensor
+    ) -> torch.Tensor:
+        # Create a one-hot mask for the ground truth targets
+        mask = torch.zeros_like(scaled_logits)
+        mask.scatter_(1, targets.view(-1, 1), 1.0)
+
+        # Subtract the margin ONLY from the true class
+        adjusted_logits = scaled_logits - (mask * self.scaled_margin)
+
+        return cast(torch.Tensor, self.ce(adjusted_logits, targets))

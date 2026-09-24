@@ -10,6 +10,7 @@ from vaak.core.exceptions import ConfigurationError
 class LossStrategy(StrEnum):
     CROSS_ENTROPY = "cross_entropy"
     FOCAL = "focal"
+    AM_SOFTMAX = "am_softmax"
 
 
 class LayerStrategy(StrEnum):
@@ -22,6 +23,11 @@ class PoolingStrategy(StrEnum):
     MEAN = "mean"
 
 
+class HeadStrategy(StrEnum):
+    LINEAR = "linear"
+    COSINE = "cosine"
+
+
 class ModelConfig(BaseModel):
     """Model configuration."""
 
@@ -30,6 +36,7 @@ class ModelConfig(BaseModel):
     name: str
     pretrained_model_name: str
     layer_strategy: LayerStrategy = LayerStrategy.LAST
+    head_strategy: HeadStrategy = HeadStrategy.LINEAR
     pooling_strategy: PoolingStrategy = PoolingStrategy.MEAN
     projection_dim: int | None = Field(default=None, gt=0)
     lora_r: int = Field(default=8, ge=1, description="Rank of the LoRA matrices")

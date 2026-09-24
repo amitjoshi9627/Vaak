@@ -1,6 +1,11 @@
 import torch.nn as nn
 
-from vaak.config.settings import LayerStrategy, PoolingStrategy, VaakConfig
+from vaak.config.settings import (
+    HeadStrategy,
+    LayerStrategy,
+    PoolingStrategy,
+    VaakConfig,
+)
 from vaak.models.backends.aggregation import WeightedLayerAggregation
 from vaak.models.backends.pooling import AttentiveStatisticsPooling, MeanPooling
 from vaak.models.backends.projection import FrameProjection
@@ -8,6 +13,7 @@ from vaak.models.backends.temporal import TemporalCNN
 from vaak.models.detector import VaakDetector
 from vaak.models.encoders.wavlm import WavLMEncoder
 from vaak.models.heads.binary import BinaryLinearHead
+from vaak.models.heads.cosine import CosineHead
 
 
 def build_model_from_config(config: VaakConfig) -> VaakDetector:
@@ -53,7 +59,12 @@ def build_model_from_config(config: VaakConfig) -> VaakDetector:
         pooler = MeanPooling()
         head_dim = feature_dim
 
-    head = BinaryLinearHead(input_dim=head_dim)
+    head_strategy = config.model.head_strategy
+
+    if head_strategy == HeadStrategy.COSINE:
+        head: nn.Module = CosineHead(input_dim=head_dim, scale=30.0)
+    else:
+        head = BinaryLinearHead(input_dim=head_dim)
 
     return VaakDetector(
         encoder=encoder,
